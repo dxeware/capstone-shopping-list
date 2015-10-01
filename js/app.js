@@ -36,7 +36,6 @@ $(document).ready(function() {
   $("#item").keyup(function(event){
     if(event.keyCode == 13){
         $("#add").click();
-        $("#item").clear();
     }
   });
 
