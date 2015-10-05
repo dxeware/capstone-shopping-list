@@ -23,12 +23,17 @@ function ListService(origItem) {
 
   var service = {
     list: shoppingList,
-    addItem: addItem
+    addItem: addItem,
+    deleteItem: deleteItem
   };
 
 
   function addItem( item ) {
-      service.list.push( item );
+    service.list.push( item );
+  }
+
+  function deleteItem( index ) {
+    service.list.splice(index, 1);
   }
 
   return service;

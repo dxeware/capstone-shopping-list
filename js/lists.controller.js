@@ -44,15 +44,21 @@ GroceryListCtrl.$inject = ['GroceryList'];
 function GroceryListCtrl( GroceryList ) {
   var vm = this;
 
-  vm.list = GroceryList.list;
+  // Only assign list if list contains items
+  if ( GroceryList.list ) {
+    vm.list = GroceryList.list;
+  }
 
-  console.log('vm.groceryList = ' + vm.list[0].item);
-
-  vm.click = function() {
-        console.log('Grocery button pressed');
-        GroceryList.addItem( { item: vm.newItem } );
+  vm.submit = function() {
+    console.log('Grocery button pressed');
+    GroceryList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
+  };
+
+  vm.delete = function(index) {
+    console.log('Grocery delete button pressed');
+    GroceryList.deleteItem( index );
   };
 
 }
@@ -62,15 +68,21 @@ TraderJoesListCtrl.$inject = ['TraderJoesList'];
 function TraderJoesListCtrl( TraderJoesList ) {
   var vm = this;
 
-  vm.list = TraderJoesList.list;
+  // Only assign list if list contains items
+  if ( TraderJoesList.list ) {
+    vm.list = TraderJoesList.list;
+  }
 
-  console.log('vm.traderJoesList = ' + vm.list[0].item);
-
-  vm.click = function() {
+  vm.submit = function() {
         console.log('TJs button pressed');
         TraderJoesList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
+  };
+
+  vm.delete = function(index) {
+    console.log('TJs delete button pressed');
+    TraderJoesList.deleteItem( index );
   };
 
 }
@@ -80,15 +92,21 @@ TargetListCtrl.$inject = ['TargetList'];
 function TargetListCtrl( TargetList ) {
   var vm = this;
 
-  vm.list = TargetList.list;
+  // Only assign list if list contains items
+  if ( TargetList.list ) {
+    vm.list = TargetList.list;
+  }
 
-  console.log('vm.targetList = ' + vm.list[0].item);
-
-  vm.click = function() {
+  vm.submit = function() {
         console.log('Target button pressed');
         TargetList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
+  };
+
+  vm.delete = function(index) {
+    console.log('Target delete button pressed');
+    TargetList.deleteItem( index );
   };
 
 }

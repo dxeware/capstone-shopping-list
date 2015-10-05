@@ -92,7 +92,11 @@ button, input {
   margin-top: -0.5em;
   width: 6em;
   float: right;
-  display: none;
+  opacity: 0;
+}
+
+.delete-div:hover {
+  opacity: 1;
 }
 
 /* -------ANIMATIONS------- */

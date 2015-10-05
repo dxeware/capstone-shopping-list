@@ -2,9 +2,9 @@
 <div class="input">
   <span>Item: </span>
   <input class="item" data-ng-model="store.newItem">
-  <button type="submit" data-ng-click="store.click()">Submit</button>
+  <button type="submit" data-ng-click="store.submit()">Submit</button>
 </div>
 <ul class="shopping-list" id="shopping-list" data-ng-repeat="items in store.list">
-  <li class="listitem"><input class="check" type="checkbox">{{items.item}}<div class="delete-div"><span class="delete">Delete</span></div>
+  <li class="listitem"><input class="check" type="checkbox">{{items.item}}<div class="delete-div"><span class="delete" data-ng-click="store.delete($index)">Delete</span></div>
   </li>
 </ul>
