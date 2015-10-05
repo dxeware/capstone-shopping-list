@@ -1,4 +1,4 @@
-angular.module( "shoppingListApp", ['ngRoute'] );
+angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
 config.$inject = ['$routeProvider'];
 
@@ -46,10 +46,10 @@ function GroceryListCtrl( GroceryList ) {
 
   vm.list = GroceryList.list;
 
-  console.log("vm.groceryList = " + vm.list[0].item);
+  console.log('vm.groceryList = ' + vm.list[0].item);
 
   vm.click = function() {
-        console.log("Grocery button pressed");
+        console.log('Grocery button pressed');
         GroceryList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
@@ -64,10 +64,10 @@ function TraderJoesListCtrl( TraderJoesList ) {
 
   vm.list = TraderJoesList.list;
 
-  console.log("vm.traderJoesList = " + vm.list[0].item);
+  console.log('vm.traderJoesList = ' + vm.list[0].item);
 
   vm.click = function() {
-        console.log("TJs button pressed");
+        console.log('TJs button pressed');
         TraderJoesList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
@@ -82,10 +82,10 @@ function TargetListCtrl( TargetList ) {
 
   vm.list = TargetList.list;
 
-  console.log("vm.targetList = " + vm.list[0].item);
+  console.log('vm.targetList = ' + vm.list[0].item);
 
   vm.click = function() {
-        console.log("Target button pressed");
+        console.log('Target button pressed');
         TargetList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
@@ -95,17 +95,10 @@ function TargetListCtrl( TargetList ) {
 
 angular.module('shoppingListApp')
         .config(config)
-        .controller( "HomeCtrl", HomeCtrl )
-        .controller( "GroceryListCtrl", GroceryListCtrl )
-        .controller( "TraderJoesListCtrl", TraderJoesListCtrl )
-        .controller( "TargetListCtrl", TargetListCtrl );
-/*
-        .config(config)
-        .controller( "HomeCtrl", HomeCtrl )
-        .controller( "GroceryListCtrl", GroceryListCtrl )
-        .controller( "TraderJoesListCtrl", TraderJoesListCtrl )
-        .controller( "TargetListCtrl", TargetListCtrl );
-
+        .controller( 'HomeCtrl', HomeCtrl )
+        .controller( 'GroceryListCtrl', GroceryListCtrl )
+        .controller( 'TraderJoesListCtrl', TraderJoesListCtrl )
+        .controller( 'TargetListCtrl', TargetListCtrl );
 
 
 /* $(document).ready(function() {

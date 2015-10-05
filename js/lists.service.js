@@ -5,17 +5,17 @@ angular.module('shoppingListApp')
 
 function TraderJoesList() {
 
-  return ListService("juicy chicken");
+  return ListService('juicy chicken');
 }
 
 function GroceryList() {
 
-  return ListService("milk");
+  return ListService('milk');
 }
 
 function TargetList () {
 
-  return ListService("TP");
+  return ListService('TP');
 }
 
 function ListService(origItem) {
