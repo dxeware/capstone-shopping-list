@@ -8,17 +8,18 @@ function config($routeProvider) {
     controller : 'HomeCtrl',
     activetab: 'home'
   }).when('/grocery', {
-    templateUrl : 'grocery.html',
+    templateUrl : 'generic-list.html',
     controller : 'GroceryListCtrl',
     controllerAs: 'list'
-  })/*.when('/trader-joes', {
-    templateUrl : 'trader-joes.html',
+  }).when('/trader-joes', {
+    templateUrl : 'generic-list.html',
     controller : 'TraderJoesListCtrl',
+    controllerAs: 'list'
   }).when('/target', {
-    templateUrl : 'target.html',
+    templateUrl : 'generic-list.html',
     controller : 'TargetListCtrl',
-  }) */
-  .when('/error', {
+    controllerAs: 'list'
+  }).when('/error', {
     templateUrl : 'home.html',
    })
   .otherwise('/error');
@@ -43,31 +44,31 @@ GroceryListCtrl.$inject = ['GroceryList'];
 function GroceryListCtrl( GroceryList ) {
   var vm = this;
 
-  vm.groceryList = GroceryList.list;
+  vm.list = GroceryList.list;
 
-  console.log("vm.groceryList = " + vm.groceryList[0].item);
+  console.log("vm.groceryList = " + vm.list[0].item);
 
-  vm.click = function( list ) {
+  vm.click = function() {
         console.log("Grocery button pressed");
-        GroceryList.addItem( { item: vm.groceryItem } );
+        GroceryList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
   };
 
 }
-/*
+
 TraderJoesListCtrl.$inject = ['TraderJoesList'];
 
 function TraderJoesListCtrl( TraderJoesList ) {
   var vm = this;
 
-  vm.traderJoesList = TraderJoesList.list;
+  vm.list = TraderJoesList.list;
 
-  console.log("vm.traderJoesList = " + vm.traderJoesList[0].item);
+  console.log("vm.traderJoesList = " + vm.list[0].item);
 
-  vm.click = function( list ) {
+  vm.click = function() {
         console.log("TJs button pressed");
-        TraderJoesList.addItem( { item: vm.traderJoesItem } );
+        TraderJoesList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
   };
@@ -79,23 +80,25 @@ TargetListCtrl.$inject = ['TargetList'];
 function TargetListCtrl( TargetList ) {
   var vm = this;
 
-  vm.targetList = TargetList.list;
+  vm.list = TargetList.list;
 
-  console.log("vm.targetList = " + vm.targetList[0].item);
+  console.log("vm.targetList = " + vm.list[0].item);
 
-  vm.click = function( list ) {
+  vm.click = function() {
         console.log("Target button pressed");
-        TargetList.addItem( { item: vm.targetItem } );
+        TargetList.addItem( { item: vm.newItem } );
 
     // $('#item').empty(); ...not working
   };
 
 }
-*/
+
 angular.module('shoppingListApp')
         .config(config)
         .controller( "HomeCtrl", HomeCtrl )
-        .controller( "GroceryListCtrl", GroceryListCtrl );
+        .controller( "GroceryListCtrl", GroceryListCtrl )
+        .controller( "TraderJoesListCtrl", TraderJoesListCtrl )
+        .controller( "TargetListCtrl", TargetListCtrl );
 /*
         .config(config)
         .controller( "HomeCtrl", HomeCtrl )
