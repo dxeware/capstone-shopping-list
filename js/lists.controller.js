@@ -10,15 +10,15 @@ function config($routeProvider) {
   }).when('/grocery', {
     templateUrl : 'generic-list.html',
     controller : 'GroceryListCtrl',
-    controllerAs: 'list'
+    controllerAs: 'store'
   }).when('/trader-joes', {
     templateUrl : 'generic-list.html',
     controller : 'TraderJoesListCtrl',
-    controllerAs: 'list'
+    controllerAs: 'store'
   }).when('/target', {
     templateUrl : 'generic-list.html',
     controller : 'TargetListCtrl',
-    controllerAs: 'list'
+    controllerAs: 'store'
   }).when('/error', {
     templateUrl : 'home.html',
    })
