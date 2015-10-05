@@ -6,11 +6,12 @@ function config($routeProvider) {
   $routeProvider.when('/', {
     templateUrl : 'home.html',
     controller : 'HomeCtrl',
-    //activetab: 'home'
-  }) /* .when('/grocery', {
+    activetab: 'home'
+  }).when('/grocery', {
     templateUrl : 'grocery.html',
     controller : 'GroceryListCtrl',
-  }).when('/trader-joes', {
+    controllerAs: 'list'
+  })/*.when('/trader-joes', {
     templateUrl : 'trader-joes.html',
     controller : 'TraderJoesListCtrl',
   }).when('/target', {
@@ -36,7 +37,7 @@ function HomeCtrl($location) {
   };
 
 }
-/*
+
 GroceryListCtrl.$inject = ['GroceryList'];
 
 function GroceryListCtrl( GroceryList ) {
@@ -54,7 +55,7 @@ function GroceryListCtrl( GroceryList ) {
   };
 
 }
-
+/*
 TraderJoesListCtrl.$inject = ['TraderJoesList'];
 
 function TraderJoesListCtrl( TraderJoesList ) {
@@ -93,7 +94,8 @@ function TargetListCtrl( TargetList ) {
 */
 angular.module('shoppingListApp')
         .config(config)
-        .controller( "HomeCtrl", HomeCtrl );
+        .controller( "HomeCtrl", HomeCtrl )
+        .controller( "GroceryListCtrl", GroceryListCtrl );
 /*
         .config(config)
         .controller( "HomeCtrl", HomeCtrl )

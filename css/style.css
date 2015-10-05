@@ -70,6 +70,7 @@ button, input {
   padding-top: 1em;
   padding-left: 0.5em;
   border-bottom: 2px solid black;
+  color: black;
 }
 
 .shopping-list li:checked {
