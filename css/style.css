@@ -1,5 +1,6 @@
 body {
   font-family: 'Lucida Grande', Verdana, sans-serif;
+  color: white;
 }
 
 .kitchen-background {
@@ -15,7 +16,25 @@ body {
   text-align: center;
   margin-top: 1em;
   font-size: 3em;
-  color: white;
+}
+
+.menu {
+  height: 36px;
+  width: auto;
+  font-size: 20px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.active {
+    text-decoration: none;
+}
+
+.home {
+  text-align: left;
+  margin: auto 16em;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .text-through {
