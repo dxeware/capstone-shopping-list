@@ -39,7 +39,6 @@ function ListService(origItem) {
 
   function deleteAllItems() {
     service.list.length = 0;
-    console.log("new list = " + service.list);
   }
 
   return service;

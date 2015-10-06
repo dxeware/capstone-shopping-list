@@ -52,8 +52,7 @@ function GroceryListCtrl( GroceryList ) {
   vm.submit = function() {
     console.log('Grocery button pressed');
     GroceryList.addItem( { item: vm.newItem } );
-
-    // $('#item').empty(); ...not working
+    vm.newItem = '';
   };
 
   vm.delete = function(index) {
@@ -79,10 +78,9 @@ function TraderJoesListCtrl( TraderJoesList ) {
   //}
 
   vm.submit = function() {
-        console.log('TJs button pressed');
-        TraderJoesList.addItem( { item: vm.newItem } );
-
-    // $('#item').empty(); ...not working
+    console.log('TJs button pressed');
+    TraderJoesList.addItem( { item: vm.newItem } );
+    vm.newItem = '';
   };
 
   vm.delete = function(index) {
@@ -107,10 +105,9 @@ function TargetListCtrl( TargetList ) {
   //}
 
   vm.submit = function() {
-        console.log('Target button pressed');
-        TargetList.addItem( { item: vm.newItem } );
-
-    // $('#item').empty(); ...not working
+    console.log('Target button pressed');
+    TargetList.addItem( { item: vm.newItem } );
+    vm.newItem = '';
   };
 
   vm.delete = function(index) {
