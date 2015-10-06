@@ -12,23 +12,23 @@ config.$inject = ['$routeProvider'];
 
 function config($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl : 'home.html',
+    templateUrl : './app/home.html',
     controller : 'HomeCtrl',
     activetab: 'home'
   }).when('/grocery', {
-    templateUrl : 'generic-list.html',
+    templateUrl : './app/generic-list.html',
     controller : 'GroceryListCtrl',
     controllerAs: 'store'
   }).when('/trader-joes', {
-    templateUrl : 'generic-list.html',
+    templateUrl : './app/generic-list.html',
     controller : 'TraderJoesListCtrl',
     controllerAs: 'store'
   }).when('/target', {
-    templateUrl : 'generic-list.html',
+    templateUrl : './app/generic-list.html',
     controller : 'TargetListCtrl',
     controllerAs: 'store'
   }).when('/error', {
-    templateUrl : 'home.html',
+    templateUrl : './app/home.html',
    })
   .otherwise('/error');
 }
