@@ -24,7 +24,8 @@ function ListService(origItem) {
   var service = {
     list: shoppingList,
     addItem: addItem,
-    deleteItem: deleteItem
+    deleteItem: deleteItem,
+    deleteAllItems: deleteAllItems
   };
 
 
@@ -34,6 +35,11 @@ function ListService(origItem) {
 
   function deleteItem( index ) {
     service.list.splice(index, 1);
+  }
+
+  function deleteAllItems() {
+    service.list.length = 0;
+    console.log("new list = " + service.list);
   }
 
   return service;

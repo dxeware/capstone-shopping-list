@@ -45,9 +45,9 @@ function GroceryListCtrl( GroceryList ) {
   var vm = this;
 
   // Only assign list if list contains items
-  if ( GroceryList.list ) {
+  //if ( GroceryList.list ) {
     vm.list = GroceryList.list;
-  }
+  //}
 
   vm.submit = function() {
     console.log('Grocery button pressed');
@@ -61,6 +61,11 @@ function GroceryListCtrl( GroceryList ) {
     GroceryList.deleteItem( index );
   };
 
+  vm.deleteAll = function() {
+    console.log('Grocery delete ALL pressed');
+    GroceryList.deleteAllItems();
+  };
+
 }
 
 TraderJoesListCtrl.$inject = ['TraderJoesList'];
@@ -69,9 +74,9 @@ function TraderJoesListCtrl( TraderJoesList ) {
   var vm = this;
 
   // Only assign list if list contains items
-  if ( TraderJoesList.list ) {
+  //if ( TraderJoesList.list ) {
     vm.list = TraderJoesList.list;
-  }
+  //}
 
   vm.submit = function() {
         console.log('TJs button pressed');
@@ -85,6 +90,10 @@ function TraderJoesListCtrl( TraderJoesList ) {
     TraderJoesList.deleteItem( index );
   };
 
+  vm.deleteAll = function() {
+    console.log('Tjs delete ALL pressed');
+    TraderJoesList.deleteAllItems();
+  };
 }
 
 TargetListCtrl.$inject = ['TargetList'];
@@ -93,9 +102,9 @@ function TargetListCtrl( TargetList ) {
   var vm = this;
 
   // Only assign list if list contains items
-  if ( TargetList.list ) {
+  //if ( TargetList.list ) {
     vm.list = TargetList.list;
-  }
+  //}
 
   vm.submit = function() {
         console.log('Target button pressed');
@@ -107,6 +116,11 @@ function TargetListCtrl( TargetList ) {
   vm.delete = function(index) {
     console.log('Target delete button pressed');
     TargetList.deleteItem( index );
+  };
+
+  vm.deleteAll = function() {
+    console.log('Target delete ALL pressed');
+    TargetList.deleteAllItems();
   };
 
 }

@@ -46,7 +46,6 @@ body {
   text-align: center;
   margin-top: 0.5em;
   font-size: 1.5em;
-  color: white;
   margin-bottom: 0.5em;
 }
 
@@ -99,6 +98,13 @@ button, input {
   opacity: 1;
 }
 
+.footer {
+  margin: auto;
+  text-align: center;
+  margin-top: 0.5em;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
 /* -------ANIMATIONS------- */
 
 /* pages ---------------------- */
