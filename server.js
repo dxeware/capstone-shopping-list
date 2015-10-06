@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var mongojs = require('mongojs');
+var db = mongojs('grocerylist', ['grocerylist']);
 
 app.use(express.static(__dirname + '/'));
 
@@ -10,16 +12,16 @@ app.get('/', function(req, res) {
 app.get('/grocerylist', function(req, res) {
   console.log("I received a get request");
 
-  var shoppingList = [ { item: 'milky' } ];
+  //var shoppingList = [ { item: 'milky' } ];
 
-  res.json(shoppingList);
+  //res.json(shoppingList);
 
   //console.log(db.contactlist.find());
-  /*db.contactlist.find(function (err, docs) {
+  db.grocerylist.find(function (err, docs) {
     console.log("error = " + err);
     console.log("%s %O", "Docs =", docs);
     res.json(docs);
-  }); */
+  });
 
 });
 

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "mongojs": "^1.4.0"
   }
 }

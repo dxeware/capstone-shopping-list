@@ -59,10 +59,10 @@ function GroceryListCtrl( GroceryList, $http ) {
 
   $http.get('/grocerylist').success( function(response) {
     console.log("I got the grocery data");
-    //vm.list = response;
-    for (var i = 0; i < response.length; i++) {
+    vm.list = response;
+    /* for (var i = 0; i < response.length; i++) {
       submitToList( GroceryList, response[i].item );
-    }
+    } */
   });
 
   vm.submit = function() {
