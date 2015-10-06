@@ -1,6 +1,6 @@
   <div class="input">
     <span>Item: </span>
-    <input class="item" data-ng-model="store.newItem">
+    <input class="item" data-ng-model="store.newItem" ng-keyup="$event.keyCode == 13 ? store.submit() : null">
     <button type="submit" data-ng-click="store.submit()">Submit</button>
   </div>
   <ul class="shopping-list" id="shopping-list" data-ng-repeat="items in store.list">

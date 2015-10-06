@@ -1,3 +1,11 @@
+function submitToList( list, vm ) {
+  // Add newItem to list, only if not empty
+  if ( vm.newItem !== '' ) {
+    list.addItem( { item: vm.newItem } );
+    vm.newItem = '';
+  }
+}
+
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
 config.$inject = ['$routeProvider'];
@@ -51,8 +59,10 @@ function GroceryListCtrl( GroceryList ) {
 
   vm.submit = function() {
     console.log('Grocery button pressed');
-    GroceryList.addItem( { item: vm.newItem } );
-    vm.newItem = '';
+
+    // Add newItem to list
+    submitToList( GroceryList, vm );
+
   };
 
   vm.delete = function(index) {
@@ -79,8 +89,9 @@ function TraderJoesListCtrl( TraderJoesList ) {
 
   vm.submit = function() {
     console.log('TJs button pressed');
-    TraderJoesList.addItem( { item: vm.newItem } );
-    vm.newItem = '';
+
+    // Add newItem to list
+    submitToList( TraderJoesList, vm );
   };
 
   vm.delete = function(index) {
@@ -106,8 +117,9 @@ function TargetListCtrl( TargetList ) {
 
   vm.submit = function() {
     console.log('Target button pressed');
-    TargetList.addItem( { item: vm.newItem } );
-    vm.newItem = '';
+
+    // Add newItem to list
+    submitToList( TargetList, vm );
   };
 
   vm.delete = function(index) {
@@ -128,6 +140,7 @@ angular.module('shoppingListApp')
         .controller( 'GroceryListCtrl', GroceryListCtrl )
         .controller( 'TraderJoesListCtrl', TraderJoesListCtrl )
         .controller( 'TargetListCtrl', TargetListCtrl );
+
 
 
 /* $(document).ready(function() {
