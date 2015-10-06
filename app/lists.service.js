@@ -5,21 +5,21 @@ angular.module('shoppingListApp')
 
 function TraderJoesList() {
 
-  return ListService('juicy chicken');
+  return ListService();
 }
 
 function GroceryList() {
 
-  return ListService('milk');
+  return ListService();
 }
 
 function TargetList () {
 
-  return ListService('TP');
+  return ListService();
 }
 
-function ListService(origItem) {
-  var shoppingList = [ { item: origItem } ];
+function ListService() {
+  var shoppingList = [];
 
   var service = {
     list: shoppingList,

@@ -1,9 +1,9 @@
-function submitToList( list, vm ) {
+function submitToList( list, newItem ) {
   // Add newItem to list, only if not empty
-  if ( vm.newItem !== '' ) {
-    list.addItem( { item: vm.newItem } );
-    vm.newItem = '';
+  if ( newItem !== '' ) {
+    list.addItem( { item: newItem } );
   }
+
 }
 
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
@@ -47,9 +47,9 @@ function HomeCtrl($location) {
 
 }
 
-GroceryListCtrl.$inject = ['GroceryList'];
+GroceryListCtrl.$inject = ['GroceryList', '$http'];
 
-function GroceryListCtrl( GroceryList ) {
+function GroceryListCtrl( GroceryList, $http ) {
   var vm = this;
 
   // Only assign list if list contains items
@@ -57,11 +57,20 @@ function GroceryListCtrl( GroceryList ) {
     vm.list = GroceryList.list;
   //}
 
+  $http.get('/grocerylist').success( function(response) {
+    console.log("I got the grocery data");
+    //vm.list = response;
+    for (var i = 0; i < response.length; i++) {
+      submitToList( GroceryList, response[i].item );
+    }
+  });
+
   vm.submit = function() {
     console.log('Grocery button pressed');
 
     // Add newItem to list
-    submitToList( GroceryList, vm );
+    submitToList( GroceryList, vm.newItem );
+    vm.newItem = '';
 
   };
 
@@ -91,7 +100,8 @@ function TraderJoesListCtrl( TraderJoesList ) {
     console.log('TJs button pressed');
 
     // Add newItem to list
-    submitToList( TraderJoesList, vm );
+    submitToList( TraderJoesList, vm.newItem );
+    vm.newItem = '';
   };
 
   vm.delete = function(index) {
@@ -119,7 +129,8 @@ function TargetListCtrl( TargetList ) {
     console.log('Target button pressed');
 
     // Add newItem to list
-    submitToList( TargetList, vm );
+    submitToList( TargetList, vm.newItem );
+    vm.newItem = '';
   };
 
   vm.delete = function(index) {
