@@ -7,6 +7,21 @@ var targetDB = mongojs('targetlist', ['targetlist']);
 
 var bodyParser = require('body-parser');
 
+function mapDB( url ) {
+  var db;
+
+  if ( url.indexOf(groceryDB) > -1 ) {
+    db = groceryDB.grocerylist;
+  } else if ( url.indexOf(traderJoesDB) > -1 ) {
+    db = traderJoesDB.traderjoeslist;
+  } else if ( url.indexOf(targetDB) > -1 ) {
+    db = targetDB.targetlist;
+  } else {
+    alert("Incorrect Database!");
+  }
+  return db;
+}
+
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
 
@@ -14,16 +29,16 @@ app.get('/', function(req, res) {
   res.send("Hello world from server.js");
 });
 
-app.get('/grocerylist', function(req, res) {
+app.get('/*list', function(req, res) {
+  var db;
 
   console.log("I received a get request");
 
-  //var shoppingList = [ { item: 'milky' } ];
+  // Map to store's database list
+  db = mapDB(req.url);
 
-  //res.json(shoppingList);
-
-  //console.log(db.contactlist.find());
-  db.grocerylist.find(function (err, docs) {
+  //groceryDB.grocerylist.find(function (err, docs) {
+  db.find(function (err, docs) {
     console.log("error = " + err);
     console.log("%s %O", "Docs =", docs);
     res.json(docs);
@@ -31,35 +46,44 @@ app.get('/grocerylist', function(req, res) {
 
 });
 
-app.post('/grocerylist', function(req, res) {
+app.post('/*list', function(req, res) {
+  var db;
+
   console.log("%s %O", "Body =", req.body);
 
-  db.grocerylist.insert(req.body, function(err, doc) {
+  // Map to store's database list
+  db = mapDB(req.url);
+
+  db.insert(req.body, function(err, doc) {
     res.json(doc);
   });
 
 });
 
 app.delete('/*list/:id', function(req, res) {
+  var db;
   var id = req.params.id;
   console.log ('req.params = ' + req.params);
   console.log ('req.url = ' + req.url);
 
-  if (req.url.indexOf("grocerylist") > -1) {
-    storeDB = db.grocerylist;
+  /* if (req.url.indexOf(groceryDB) > -1) {
+    storeDB = groceryDB.grocerylist;
     console.log("found a match");
-  }
+  } */
+
+  // Map to store's database list
+  db = mapDB(req.url);
 
   // Check that id is VALID --> -1 represents INVALID
   if ( id !== '-1' ) {
     console.log(id);
     //db.grocerylist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
-    storeDB.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    db.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
       res.json(doc);
     });
   } else {
     console.log("deleting ALL!!!!");
-    db.grocerylist.remove({}, function (err, doc) {
+    db.remove({}, function (err, doc) {
       res.json(doc);
     });
   }
