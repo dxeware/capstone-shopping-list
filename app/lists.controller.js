@@ -90,10 +90,17 @@ function GroceryListCtrl( GroceryList, $http ) {
   refresh($http, vm, url);
 
   vm.submit = function() {
-    // Add newItem to list
-    submitItem( GroceryList, vm);
-    //Refresh the list
-    refresh($http, vm, url);
+    console.log('Grocery submit button pressed');
+
+    // If input not empty, add newItem to list
+    // and refresh the list
+    if ( vm.newItem !== '' ) {
+      GroceryList.addItem( { item: vm.newItem } );
+      refresh($http, vm, url);
+    }
+
+    // Clear the input
+    vm.newItem = '';
   };
 
   vm.delete = function( id ) {
@@ -110,9 +117,9 @@ function GroceryListCtrl( GroceryList, $http ) {
 
 }
 
-TraderJoesListCtrl.$inject = ['TraderJoesList'];
+TraderJoesListCtrl.$inject = ['TraderJoesList', '$http'];
 
-function TraderJoesListCtrl( TraderJoesList ) {
+function TraderJoesListCtrl( TraderJoesList, $http ) {
   var vm = this;
   var url = '/traderjoeslist';
 
@@ -124,10 +131,17 @@ function TraderJoesListCtrl( TraderJoesList ) {
   refresh($http, vm, url);
 
   vm.submit = function() {
-    // Add newItem to list
-    submitItem( TraderJoesList, vm);
-    //Refresh the list
-    refresh($http, vm, url);
+    console.log('Trader Joes submit button pressed');
+
+    // If input not empty, add newItem to list
+    // and refresh the list
+    if ( vm.newItem !== '' ) {
+      TraderJoesList.addItem( { item: vm.newItem } );
+      refresh($http, vm, url);
+    }
+
+    // Clear the input
+    vm.newItem = '';
   };
 
   vm.delete = function( id ) {
@@ -144,32 +158,43 @@ function TraderJoesListCtrl( TraderJoesList ) {
 
 }
 
-TargetListCtrl.$inject = ['TargetList'];
+TargetListCtrl.$inject = ['TargetList', '$http'];
 
-function TargetListCtrl( TargetList ) {
+function TargetListCtrl( TargetList, $http ) {
   var vm = this;
+  var url = '/targetlist';
 
-  // Only assign list if list contains items
-  //if ( TargetList.list ) {
-    vm.list = TargetList.list;
-  //}
+  vm.errorPresent = false;
+  vm.error = '';
+
+  vm.list = TargetList.list;
+
+  refresh($http, vm, url);
 
   vm.submit = function() {
-    console.log('Target button pressed');
+    console.log('Target submit button pressed');
 
-    // Add newItem to list
-    submitToList( TargetList, vm.newItem );
+    // If input not empty, add newItem to list
+    // and refresh the list
+    if ( vm.newItem !== '' ) {
+      TargetList.addItem( { item: vm.newItem } );
+      refresh($http, vm, url);
+    }
+
+    // Clear the input
     vm.newItem = '';
   };
 
-  vm.delete = function(index) {
-    console.log('Target delete button pressed');
-    TargetList.deleteItem( index );
+  vm.delete = function( id ) {
+    console.log('TJs delete button pressed');
+    TargetList.deleteItem( id );
+    refresh($http, vm, url);
   };
 
   vm.deleteAll = function() {
-    console.log('Target delete ALL pressed');
+    console.log('Grocery delete ALL pressed');
     TargetList.deleteAllItems();
+    refresh($http, vm, url);
   };
 
 }

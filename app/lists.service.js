@@ -3,19 +3,19 @@ angular.module('shoppingListApp')
   .service( 'GroceryList', GroceryList)
   .service( 'TargetList', TargetList);
 
-function TraderJoesList() {
-
-  return ListService('');
-}
-
 function GroceryList( $http ) {
 
   return ListService( $http, '/grocerylist');
 }
 
-function TargetList () {
+function TraderJoesList( $http ) {
 
-  return ListService('');
+  return ListService( $http, '/traderjoeslist');
+}
+
+function TargetList ( $http ) {
+
+  return ListService( $http, '/targetlist');
 }
 
 function ListService( $http, url ) {
