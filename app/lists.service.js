@@ -44,7 +44,10 @@ function ListService( $http, url ) {
   }
 
   function deleteAllItems() {
-    service.list.length = 0;
+    //service.list.length = 0;
+    $http.delete( url + '/' + '-1').success( function(response) {
+      console.log(response);
+    });
   }
 
   return service;

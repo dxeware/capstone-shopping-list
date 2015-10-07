@@ -1,7 +1,10 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db = mongojs('grocerylist', ['grocerylist']);
+var groceryDB = mongojs('grocerylist', ['grocerylist']);
+var traderJoesDB = mongojs('traderjoeslist', ['traderjoeslist']);
+var targetDB = mongojs('targetlist', ['targetlist']);
+
 var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/'));
@@ -12,6 +15,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/grocerylist', function(req, res) {
+
   console.log("I received a get request");
 
   //var shoppingList = [ { item: 'milky' } ];
@@ -36,12 +40,29 @@ app.post('/grocerylist', function(req, res) {
 
 });
 
-app.delete('/grocerylist/:id', function(req, res) {
+app.delete('/*list/:id', function(req, res) {
   var id = req.params.id;
-  console.log(id);
-  db.grocerylist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
-    res.json(doc);
-  });
+  console.log ('req.params = ' + req.params);
+  console.log ('req.url = ' + req.url);
+
+  if (req.url.indexOf("grocerylist") > -1) {
+    storeDB = db.grocerylist;
+    console.log("found a match");
+  }
+
+  // Check that id is VALID --> -1 represents INVALID
+  if ( id !== '-1' ) {
+    console.log(id);
+    //db.grocerylist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    storeDB.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+      res.json(doc);
+    });
+  } else {
+    console.log("deleting ALL!!!!");
+    db.grocerylist.remove({}, function (err, doc) {
+      res.json(doc);
+    });
+  }
 });
 
 app.listen(3000);

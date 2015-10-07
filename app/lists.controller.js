@@ -7,6 +7,34 @@ function submitToList( list, newItem ) {
 
 }
 
+function refresh( $http, vm, url ) {
+  //Clear any errors
+  vm.errorPresent = false;
+
+  $http.get(url).then( function (response) {
+    console.log('I got the ' + url + ' data');
+    console.log("response = " + response);
+    vm.list = response.data;
+  },
+  function(err) {
+    console.log("GOT A DB ERROR!");
+    vm.errorPresent = true;
+    vm.error = "ERROR: failed to read Database!";
+  });
+}
+
+function submitItem( list, vm ) {
+  console.log('Submit button pressed');
+
+  // Add newItem to list
+  if ( vm.newItem !== '' ) {
+    list.addItem( { item: vm.newItem } );
+  }
+
+  // Clear the input
+  vm.newItem = '';
+}
+
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
 config.$inject = ['$routeProvider'];
@@ -57,48 +85,27 @@ function GroceryListCtrl( GroceryList, $http ) {
   vm.errorPresent = false;
   vm.error = '';
 
-  // Only assign list if list contains items
-  //if ( GroceryList.list ) {
-    vm.list = GroceryList.list;
-  //}
+  vm.list = GroceryList.list;
 
-  var refresh = function() {
-    $http.get('/grocerylist').then( function (response) {
-      console.log("I got the grocery data");
-      console.log("response = " + response);
-      vm.list = response.data;
-    },
-    function(err) {
-      console.log("GOT A DB ERROR!");
-      vm.errorPresent = true;
-      vm.error = "ERROR: failed to read Database!";
-    });
-  };
-
-  refresh();
+  refresh($http, vm, url);
 
   vm.submit = function() {
-    console.log('Grocery button pressed');
-
     // Add newItem to list
-    submitToList( GroceryList, vm.newItem );
-
+    submitItem( GroceryList, vm);
     //Refresh the list
-    refresh();
-
-    // Clear the input
-    vm.newItem = '';
+    refresh($http, vm, url);
   };
 
-  vm.delete = function(id) {
+  vm.delete = function( id ) {
     console.log('Grocery delete button pressed');
     GroceryList.deleteItem( id );
-    refresh();
+    refresh($http, vm, url);
   };
 
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
     GroceryList.deleteAllItems();
+    refresh($http, vm, url);
   };
 
 }
@@ -107,32 +114,34 @@ TraderJoesListCtrl.$inject = ['TraderJoesList'];
 
 function TraderJoesListCtrl( TraderJoesList ) {
   var vm = this;
+  var url = '/traderjoeslist';
 
-  // Only assign list if list contains items
-  //if ( TraderJoesList.list ) {
-    vm.list = TraderJoesList.list;
-  //}
+  vm.errorPresent = false;
+  vm.error = '';
+
+  vm.list = TraderJoesList.list;
+
+  refresh($http, vm, url);
 
   vm.submit = function() {
-    console.log('TJs button pressed');
-
     // Add newItem to list
-    if ( newItem !== '' ) {
-      list.addItem( { item: newItem } );
-    }
-
-    vm.newItem = '';
+    submitItem( TraderJoesList, vm);
+    //Refresh the list
+    refresh($http, vm, url);
   };
 
-  vm.delete = function(index) {
+  vm.delete = function( id ) {
     console.log('TJs delete button pressed');
-    TraderJoesList.deleteItem( index );
+    TraderJoesList.deleteItem( id );
+    refresh($http, vm, url);
   };
 
   vm.deleteAll = function() {
-    console.log('Tjs delete ALL pressed');
+    console.log('Grocery delete ALL pressed');
     TraderJoesList.deleteAllItems();
+    refresh($http, vm, url);
   };
+
 }
 
 TargetListCtrl.$inject = ['TargetList'];
