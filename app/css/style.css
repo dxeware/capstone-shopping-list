@@ -72,12 +72,12 @@ button, input {
   color: black;
 }
 
-.shopping-list li:checked {
-  text-decoration: strikethrough;
-}
-
 .shopping-list .delete {
   display: inline-block;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
 
 .delete {

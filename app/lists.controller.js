@@ -18,6 +18,18 @@ function refresh( $http, vm, url ) {
   });
 }
 
+function deleteSelectedItems ( vm, list ) {
+
+  // Walk through list, if item checked
+  // then delete in database
+  for (var i = 0; i < vm.list.length; i++) {
+    if ( vm.list[i].checked === true ) {
+      console.log ("select deleting id " + vm.list[i]._id);
+      list.deleteItem( vm.list[i]._id );
+    }
+  }
+}
+
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
 config.$inject = ['$routeProvider'];
@@ -92,6 +104,12 @@ function GroceryListCtrl( GroceryList, $http ) {
     refresh($http, vm, url);
   };
 
+  vm.deleteSelected = function() {
+    console.log('Grocery delete SELECTED');
+    deleteSelectedItems( vm, GroceryList);
+    refresh($http, vm, url);
+  };
+
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
     GroceryList.deleteAllItems();
@@ -133,6 +151,12 @@ function TraderJoesListCtrl( TraderJoesList, $http ) {
     refresh($http, vm, url);
   };
 
+  vm.deleteSelected = function() {
+    console.log('Trader Joes delete SELECTED');
+    deleteSelectedItems( vm, TraderJoesList);
+    refresh($http, vm, url);
+  };
+
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
     TraderJoesList.deleteAllItems();
@@ -171,6 +195,12 @@ function TargetListCtrl( TargetList, $http ) {
   vm.delete = function( id ) {
     console.log('TJs delete button pressed');
     TargetList.deleteItem( id );
+    refresh($http, vm, url);
+  };
+
+  vm.deleteSelected = function() {
+    console.log('Target delete SELECTED');
+    deleteSelectedItems( vm, TargetList);
     refresh($http, vm, url);
   };
 
