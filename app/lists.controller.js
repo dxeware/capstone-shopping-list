@@ -81,9 +81,7 @@ function GroceryListCtrl( GroceryList, $http ) {
     console.log('Grocery button pressed');
 
     // Add newItem to list
-    if ( newItem !== '' ) {
-      list.addItem( { item: newItem } );
-    }
+    submitToList( GroceryList, vm.newItem );
 
     //Refresh the list
     refresh();

@@ -19,14 +19,11 @@ app.get('/grocerylist', function(req, res) {
   //res.json(shoppingList);
 
   //console.log(db.contactlist.find());
-  /*
   db.grocerylist.find(function (err, docs) {
     console.log("error = " + err);
     console.log("%s %O", "Docs =", docs);
     res.json(docs);
   });
-*/
-  throw(500);
 
 });
 
