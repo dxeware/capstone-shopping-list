@@ -2,8 +2,10 @@ var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
 var db = mongojs('grocerylist', ['grocerylist']);
+var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/'));
+app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
   res.send("Hello world from server.js");
@@ -23,6 +25,23 @@ app.get('/grocerylist', function(req, res) {
     res.json(docs);
   });
 
+});
+
+app.post('/grocerylist', function(req, res) {
+  console.log("%s %O", "Body =", req.body);
+
+  db.grocerylist.insert(req.body, function(err, doc) {
+    res.json(doc);
+  });
+
+});
+
+app.delete('/grocerylist/:id', function(req, res) {
+  var id = req.params.id;
+  console.log(id);
+  db.grocerylist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    res.json(doc);
+  });
 });
 
 app.listen(3000);

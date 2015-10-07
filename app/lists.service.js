@@ -5,20 +5,20 @@ angular.module('shoppingListApp')
 
 function TraderJoesList() {
 
-  return ListService();
+  return ListService('');
 }
 
-function GroceryList() {
+function GroceryList( $http ) {
 
-  return ListService();
+  return ListService( $http, '/grocerylist');
 }
 
 function TargetList () {
 
-  return ListService();
+  return ListService('');
 }
 
-function ListService() {
+function ListService( $http, url ) {
   var shoppingList = [];
 
   var service = {
@@ -30,11 +30,17 @@ function ListService() {
 
 
   function addItem( item ) {
-    service.list.push( item );
+    //service.list.push( item );
+    $http.post( url, item ).success( function(response) {
+      console.log(response);
+    });
   }
 
-  function deleteItem( index ) {
-    service.list.splice(index, 1);
+  function deleteItem( id ) {
+    //service.list.splice(index, 1);
+    $http.delete( url + '/' + id ).success( function(response) {
+      console.log(response);
+    });
   }
 
   function deleteAllItems() {

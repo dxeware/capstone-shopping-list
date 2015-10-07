@@ -1,6 +1,7 @@
 function submitToList( list, newItem ) {
   // Add newItem to list, only if not empty
   if ( newItem !== '' ) {
+
     list.addItem( { item: newItem } );
   }
 
@@ -51,32 +52,44 @@ GroceryListCtrl.$inject = ['GroceryList', '$http'];
 
 function GroceryListCtrl( GroceryList, $http ) {
   var vm = this;
+  var url = '/grocerylist';
 
   // Only assign list if list contains items
   //if ( GroceryList.list ) {
     vm.list = GroceryList.list;
   //}
 
-  $http.get('/grocerylist').success( function(response) {
-    console.log("I got the grocery data");
-    vm.list = response;
-    /* for (var i = 0; i < response.length; i++) {
-      submitToList( GroceryList, response[i].item );
-    } */
-  });
+  var refresh = function() {
+    $http.get('/grocerylist').success( function(response) {
+      console.log("I got the grocery data");
+      vm.list = response;
+      /* for (var i = 0; i < response.length; i++) {
+        submitToList( GroceryList, response[i].item );
+      } */
+    });
+  };
+
+  refresh();
 
   vm.submit = function() {
     console.log('Grocery button pressed');
 
     // Add newItem to list
-    submitToList( GroceryList, vm.newItem );
-    vm.newItem = '';
+    if ( newItem !== '' ) {
+      list.addItem( { item: newItem } );
+    }
 
+    //Refresh the list
+    refresh();
+
+    // Clear the input
+    vm.newItem = '';
   };
 
-  vm.delete = function(index) {
+  vm.delete = function(id) {
     console.log('Grocery delete button pressed');
-    GroceryList.deleteItem( index );
+    GroceryList.deleteItem( id );
+    refresh();
   };
 
   vm.deleteAll = function() {
@@ -100,7 +113,10 @@ function TraderJoesListCtrl( TraderJoesList ) {
     console.log('TJs button pressed');
 
     // Add newItem to list
-    submitToList( TraderJoesList, vm.newItem );
+    if ( newItem !== '' ) {
+      list.addItem( { item: newItem } );
+    }
+
     vm.newItem = '';
   };
 
