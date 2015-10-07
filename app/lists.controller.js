@@ -1,11 +1,6 @@
-function submitToList( list, newItem ) {
-  // Add newItem to list, only if not empty
-  if ( newItem !== '' ) {
-
-    list.addItem( { item: newItem } );
-  }
-
-}
+var grocery_url = '/grocerylist';
+var traderjoes_url = '/traderjoeslist';
+var target_url = '/targetlist';
 
 function refresh( $http, vm, url ) {
   //Clear any errors
@@ -21,18 +16,6 @@ function refresh( $http, vm, url ) {
     vm.errorPresent = true;
     vm.error = "ERROR: failed to read Database!";
   });
-}
-
-function submitItem( list, vm ) {
-  console.log('Submit button pressed');
-
-  // Add newItem to list
-  if ( vm.newItem !== '' ) {
-    list.addItem( { item: vm.newItem } );
-  }
-
-  // Clear the input
-  vm.newItem = '';
 }
 
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
@@ -80,7 +63,7 @@ GroceryListCtrl.$inject = ['GroceryList', '$http'];
 
 function GroceryListCtrl( GroceryList, $http ) {
   var vm = this;
-  var url = '/grocerylist';
+  var url = grocery_url;
 
   vm.errorPresent = false;
   vm.error = '';
@@ -121,7 +104,7 @@ TraderJoesListCtrl.$inject = ['TraderJoesList', '$http'];
 
 function TraderJoesListCtrl( TraderJoesList, $http ) {
   var vm = this;
-  var url = '/traderjoeslist';
+  var url = traderjoes_url;
 
   vm.errorPresent = false;
   vm.error = '';
@@ -162,7 +145,7 @@ TargetListCtrl.$inject = ['TargetList', '$http'];
 
 function TargetListCtrl( TargetList, $http ) {
   var vm = this;
-  var url = '/targetlist';
+  var url = target_url;
 
   vm.errorPresent = false;
   vm.error = '';

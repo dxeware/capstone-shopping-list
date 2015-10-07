@@ -5,17 +5,17 @@ angular.module('shoppingListApp')
 
 function GroceryList( $http ) {
 
-  return ListService( $http, '/grocerylist');
+  return ListService( $http, grocery_url);
 }
 
 function TraderJoesList( $http ) {
 
-  return ListService( $http, '/traderjoeslist');
+  return ListService( $http, traderjoes_url);
 }
 
 function TargetList ( $http ) {
 
-  return ListService( $http, '/targetlist');
+  return ListService( $http, target_url);
 }
 
 function ListService( $http, url ) {

@@ -37,7 +37,6 @@ app.get('/*list', function(req, res) {
   // Map to store's database list
   db = mapDB(req.url);
 
-  //groceryDB.grocerylist.find(function (err, docs) {
   db.find(function (err, docs) {
     console.log("error = " + err);
     console.log("%s %O", "Docs =", docs);
@@ -77,7 +76,6 @@ app.delete('/*list/:id', function(req, res) {
   // Check that id is VALID --> -1 represents INVALID
   if ( id !== '-1' ) {
     console.log(id);
-    //db.grocerylist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
     db.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
       res.json(doc);
     });
