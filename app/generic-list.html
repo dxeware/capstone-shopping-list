@@ -10,3 +10,5 @@
   <div class="footer" ng-hide="store.list[0].item == null">
     <button type="submit" data-ng-click="store.deleteAll()">Delete All</button>
   </div>
+  <div class="error" ng-show="store.errorPresent">{{store.error}}
+  </div>

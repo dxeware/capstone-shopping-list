@@ -54,18 +54,24 @@ function GroceryListCtrl( GroceryList, $http ) {
   var vm = this;
   var url = '/grocerylist';
 
+  vm.errorPresent = false;
+  vm.error = '';
+
   // Only assign list if list contains items
   //if ( GroceryList.list ) {
     vm.list = GroceryList.list;
   //}
 
   var refresh = function() {
-    $http.get('/grocerylist').success( function(response) {
+    $http.get('/grocerylist').then( function (response) {
       console.log("I got the grocery data");
-      vm.list = response;
-      /* for (var i = 0; i < response.length; i++) {
-        submitToList( GroceryList, response[i].item );
-      } */
+      console.log("response = " + response);
+      vm.list = response.data;
+    },
+    function(err) {
+      console.log("GOT A DB ERROR!");
+      vm.errorPresent = true;
+      vm.error = "ERROR: failed to read Database!";
     });
   };
 

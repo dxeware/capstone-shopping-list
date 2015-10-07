@@ -105,6 +105,17 @@ button, input {
   font-size: 1.5em;
   margin-bottom: 0.5em;
 }
+
+.error {
+  margin: auto;
+  text-align: center;
+  margin: 0.5em auto;
+  width: 20em;
+  font-size: 1.5em;
+  color: red;
+  font-weight: bold;
+  background-color: white;
+}
 /* -------ANIMATIONS------- */
 
 /* pages ---------------------- */
@@ -153,6 +164,9 @@ button, input {
     .shopping-list {
       width: 80%;
       font-size: 1em;
+    }
+    .error {
+      width: 10em;
     }
 }
 
