@@ -40,7 +40,7 @@ function ListService( $http, url ) {
         console.log(response);
       },
       function(err) {
-        return -1;
+        console.log('DB ERROR');
       }
     );
   }
@@ -52,7 +52,7 @@ function ListService( $http, url ) {
       console.log(response);
     },
       function(err) {
-        return -1;
+        console.log('DB ERROR!');
       }
     );
   }
@@ -66,7 +66,7 @@ function ListService( $http, url ) {
       console.log(response);
     },
       function(err) {
-        return -1;
+        console.log('DB ERROR');
       }
     );
   }

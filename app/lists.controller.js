@@ -31,9 +31,7 @@ function deleteSelectedItems ( vm, service ) {
   for (var i = 0; i < vm.list.length; i++) {
     if ( vm.list[i].checked === true ) {
       console.log ("select deleting id " + vm.list[i]._id);
-      if ( -1 === service.deleteItem( vm.list[i]._id ) ) {
-        dbError( vm );
-      }
+      service.deleteItem( vm.list[i]._id );
     }
   }
 }
@@ -127,9 +125,8 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
     // and refresh the list
     if ( vm.newItem !== '' ) {
       //GroceryList.addItem( { item: vm.newItem } );
-      if ( -1 === service.addItem( { item: vm.newItem } ) ) {
-        dbError(vm);
-      }
+      //if ( var temp = service.addItem( { item: vm.newItem } ) ) {
+      service.addItem( { item: vm.newItem } );
       refresh($http, vm, url);
     }
 
@@ -144,9 +141,7 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete item from DB via id and refresh the list
     //GroceryList.deleteItem( id );
-    if ( -1 === service.deleteItem( id ) ) {
-      dbError(vm);
-    }
+    service.deleteItem( id );
     refresh($http, vm, url);
   };
 
@@ -168,9 +163,7 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete ALL items from DB and refresh the list
     //GroceryList.deleteAllItems();
-    if ( -1 === service.deleteAllItems() ) {
-      dbError(vm);
-    }
+    service.deleteAllItems();
     refresh($http, vm, url);
   };
 
