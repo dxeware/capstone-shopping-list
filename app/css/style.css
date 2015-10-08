@@ -1,7 +1,7 @@
 body {
   font-family: 'Lucida Grande', Verdana, sans-serif;
   color: white;
-  background-color: #2C3539;
+  background-color: #2C3539; /* dark grey */
 }
 
 .kitchen-background {
@@ -31,10 +31,11 @@ body {
 }
 
 .home {
-  text-align: left;
-  margin: auto 8em;
+  text-align: center;
+  margin: 2em 8em;
   font-size: 24px;
   font-weight: bold;
+  //background-color: #2C3539; /* dark grey */
 }
 
 .text-through {

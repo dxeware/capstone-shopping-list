@@ -2,6 +2,7 @@ var grocery_url = '/grocerylist';
 var traderjoes_url = '/traderjoeslist';
 var target_url = '/targetlist';
 
+// Get's the list from DB and refreshes the VM list
 function refresh( $http, vm, url ) {
   //Clear any errors
   vm.errorPresent = false;
@@ -18,6 +19,7 @@ function refresh( $http, vm, url ) {
   });
 }
 
+// Delete the items that have been checked
 function deleteSelectedItems ( vm, list ) {
 
   // Walk through list, if item checked
@@ -30,6 +32,7 @@ function deleteSelectedItems ( vm, list ) {
   }
 }
 
+// angular.module setter
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
 config.$inject = ['$routeProvider'];
@@ -77,13 +80,20 @@ function GroceryListCtrl( GroceryList, $http ) {
   var vm = this;
   var url = grocery_url;
 
+  // Initialize error to false
   vm.errorPresent = false;
   vm.error = '';
 
+  // $location.path()
+
+  // Set the VM list to the service list
   vm.list = GroceryList.list;
 
+  // Refresh the list
   refresh($http, vm, url);
 
+  // Function called when input submit button OR
+  // enter is pressed
   vm.submit = function() {
     console.log('Grocery submit button pressed');
 
@@ -98,20 +108,32 @@ function GroceryListCtrl( GroceryList, $http ) {
     vm.newItem = '';
   };
 
+  // Function called when individual item
+  // delete button is pressed
   vm.delete = function( id ) {
     console.log('Grocery delete button pressed');
+
+    // delete item from DB via id and refresh the list
     GroceryList.deleteItem( id );
     refresh($http, vm, url);
   };
 
+  // Function called when individual item
+  // delete button is pressed
   vm.deleteSelected = function() {
     console.log('Grocery delete SELECTED');
+
+    // delete selected items from DB and refresh the list
     deleteSelectedItems( vm, GroceryList);
     refresh($http, vm, url);
   };
 
+  // Function called when Delete All
+  // button is pressed
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
+
+    // delete ALL items from DB and refresh the list
     GroceryList.deleteAllItems();
     refresh($http, vm, url);
   };

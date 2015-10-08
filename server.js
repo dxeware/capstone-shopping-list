@@ -7,6 +7,7 @@ var targetDB = mongojs('targetlist', ['targetlist']);
 
 var bodyParser = require('body-parser');
 
+// Map the db based on the url
 function mapDB( url ) {
   var db;
 
@@ -17,7 +18,7 @@ function mapDB( url ) {
   } else if ( url.indexOf(targetDB) > -1 ) {
     db = targetDB.targetlist;
   } else {
-    alert("Incorrect Database!");
+    throw("ERROR: Incorrect Database!");
   }
   return db;
 }
@@ -25,10 +26,11 @@ function mapDB( url ) {
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
+/* app.get('/', function(req, res) {
   res.send("Hello world from server.js");
-});
+}); */
 
+// Get request to retrieve list from database
 app.get('/*list', function(req, res) {
   var db;
 
@@ -37,6 +39,7 @@ app.get('/*list', function(req, res) {
   // Map to store's database list
   db = mapDB(req.url);
 
+  // Call mongodb find() to retrieve list of items
   db.find(function (err, docs) {
     console.log("error = " + err);
     console.log("%s %O", "Docs =", docs);
@@ -45,6 +48,7 @@ app.get('/*list', function(req, res) {
 
 });
 
+// Post request to insert to list in database
 app.post('/*list', function(req, res) {
   var db;
 
@@ -53,22 +57,19 @@ app.post('/*list', function(req, res) {
   // Map to store's database list
   db = mapDB(req.url);
 
+  // Call mongodb insert() to add item to list
   db.insert(req.body, function(err, doc) {
     res.json(doc);
   });
 
 });
 
+// Delete request to remove from list in database
 app.delete('/*list/:id', function(req, res) {
   var db;
   var id = req.params.id;
   console.log ('req.params = ' + req.params);
   console.log ('req.url = ' + req.url);
-
-  /* if (req.url.indexOf(groceryDB) > -1) {
-    storeDB = groceryDB.grocerylist;
-    console.log("found a match");
-  } */
 
   // Map to store's database list
   db = mapDB(req.url);
@@ -76,11 +77,15 @@ app.delete('/*list/:id', function(req, res) {
   // Check that id is VALID --> -1 represents INVALID
   if ( id !== '-1' ) {
     console.log(id);
+
+    // Remove one _id from database
     db.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
       res.json(doc);
     });
   } else {
     console.log("deleting ALL!!!!");
+
+    // Remove all items from database
     db.remove({}, function (err, doc) {
       res.json(doc);
     });
