@@ -44,15 +44,15 @@ function config($routeProvider) {
     activetab: 'home'
   }).when('/grocery', {
     templateUrl : './app/generic-list.html',
-    controller : 'GroceryListCtrl',
+    controller : 'StoreListCtrl',
     controllerAs: 'store'
   }).when('/trader-joes', {
     templateUrl : './app/generic-list.html',
-    controller : 'TraderJoesListCtrl',
+    controller : 'StoreListCtrl',
     controllerAs: 'store'
   }).when('/target', {
     templateUrl : './app/generic-list.html',
-    controller : 'TargetListCtrl',
+    controller : 'StoreListCtrl',
     controllerAs: 'store'
   }).when('/error', {
     templateUrl : './app/home.html',
@@ -74,20 +74,40 @@ function HomeCtrl($location) {
 
 }
 
-GroceryListCtrl.$inject = ['GroceryList', '$http'];
+StoreListCtrl.$inject = ['GroceryList', 'TraderJoesList', 'TargetList', '$http', '$location'];
 
-function GroceryListCtrl( GroceryList, $http ) {
+function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $location ) {
   var vm = this;
-  var url = grocery_url;
+  var url;
+  var service;
 
   // Initialize error to false
   vm.errorPresent = false;
   vm.error = '';
 
-  // $location.path()
+  console.log("path = " + $location.path());
+
+  // Map $location.path to Service and url
+  // for current store database
+  switch ( $location.path() ) {
+    case '/grocery':
+      service = GroceryList;
+      url = grocery_url;
+      break;
+    case '/trader-joes':
+      console.log('tjs....');
+      service = TraderJoesList;
+      url = traderjoes_url;
+      break;
+    case '/target':
+      service = TargetList;
+      url = target_url;
+      break;
+  }
 
   // Set the VM list to the service list
-  vm.list = GroceryList.list;
+  //vm.list = GroceryList.list;
+  vm.list = service.list;
 
   // Refresh the list
   refresh($http, vm, url);
@@ -100,7 +120,8 @@ function GroceryListCtrl( GroceryList, $http ) {
     // If input not empty, add newItem to list
     // and refresh the list
     if ( vm.newItem !== '' ) {
-      GroceryList.addItem( { item: vm.newItem } );
+      //GroceryList.addItem( { item: vm.newItem } );
+      service.addItem( { item: vm.newItem } );
       refresh($http, vm, url);
     }
 
@@ -114,7 +135,8 @@ function GroceryListCtrl( GroceryList, $http ) {
     console.log('Grocery delete button pressed');
 
     // delete item from DB via id and refresh the list
-    GroceryList.deleteItem( id );
+    //GroceryList.deleteItem( id );
+    service.deleteItem( id );
     refresh($http, vm, url);
   };
 
@@ -124,7 +146,8 @@ function GroceryListCtrl( GroceryList, $http ) {
     console.log('Grocery delete SELECTED');
 
     // delete selected items from DB and refresh the list
-    deleteSelectedItems( vm, GroceryList);
+    //deleteSelectedItems( vm, GroceryList);
+    deleteSelectedItems( vm, service);
     refresh($http, vm, url);
   };
 
@@ -134,101 +157,8 @@ function GroceryListCtrl( GroceryList, $http ) {
     console.log('Grocery delete ALL pressed');
 
     // delete ALL items from DB and refresh the list
-    GroceryList.deleteAllItems();
-    refresh($http, vm, url);
-  };
-
-}
-
-TraderJoesListCtrl.$inject = ['TraderJoesList', '$http'];
-
-function TraderJoesListCtrl( TraderJoesList, $http ) {
-  var vm = this;
-  var url = traderjoes_url;
-
-  vm.errorPresent = false;
-  vm.error = '';
-
-  vm.list = TraderJoesList.list;
-
-  refresh($http, vm, url);
-
-  vm.submit = function() {
-    console.log('Trader Joes submit button pressed');
-
-    // If input not empty, add newItem to list
-    // and refresh the list
-    if ( vm.newItem !== '' ) {
-      TraderJoesList.addItem( { item: vm.newItem } );
-      refresh($http, vm, url);
-    }
-
-    // Clear the input
-    vm.newItem = '';
-  };
-
-  vm.delete = function( id ) {
-    console.log('TJs delete button pressed');
-    TraderJoesList.deleteItem( id );
-    refresh($http, vm, url);
-  };
-
-  vm.deleteSelected = function() {
-    console.log('Trader Joes delete SELECTED');
-    deleteSelectedItems( vm, TraderJoesList);
-    refresh($http, vm, url);
-  };
-
-  vm.deleteAll = function() {
-    console.log('Grocery delete ALL pressed');
-    TraderJoesList.deleteAllItems();
-    refresh($http, vm, url);
-  };
-
-}
-
-TargetListCtrl.$inject = ['TargetList', '$http'];
-
-function TargetListCtrl( TargetList, $http ) {
-  var vm = this;
-  var url = target_url;
-
-  vm.errorPresent = false;
-  vm.error = '';
-
-  vm.list = TargetList.list;
-
-  refresh($http, vm, url);
-
-  vm.submit = function() {
-    console.log('Target submit button pressed');
-
-    // If input not empty, add newItem to list
-    // and refresh the list
-    if ( vm.newItem !== '' ) {
-      TargetList.addItem( { item: vm.newItem } );
-      refresh($http, vm, url);
-    }
-
-    // Clear the input
-    vm.newItem = '';
-  };
-
-  vm.delete = function( id ) {
-    console.log('TJs delete button pressed');
-    TargetList.deleteItem( id );
-    refresh($http, vm, url);
-  };
-
-  vm.deleteSelected = function() {
-    console.log('Target delete SELECTED');
-    deleteSelectedItems( vm, TargetList);
-    refresh($http, vm, url);
-  };
-
-  vm.deleteAll = function() {
-    console.log('Grocery delete ALL pressed');
-    TargetList.deleteAllItems();
+    //GroceryList.deleteAllItems();
+    service.deleteAllItems();
     refresh($http, vm, url);
   };
 
@@ -237,73 +167,4 @@ function TargetListCtrl( TargetList, $http ) {
 angular.module('shoppingListApp')
         .config(config)
         .controller( 'HomeCtrl', HomeCtrl )
-        .controller( 'GroceryListCtrl', GroceryListCtrl )
-        .controller( 'TraderJoesListCtrl', TraderJoesListCtrl )
-        .controller( 'TargetListCtrl', TargetListCtrl );
-
-
-
-/* $(document).ready(function() {
-
-  // Remove list item if 'Delete' is clicked
-  $( '#shopping-list' ).on('click', '.delete', function( event ) {
-    //console.log( 'clicked DELETE' );
-    $(this).closest('li').remove();
-  });
-
-  // Show 'Delete' div on mouseenter
-  $( '#shopping-list' ).on('mouseenter', '.listitem', function( event ) {
-    //console.log( 'MOUSE ENTER' );
-    $(this).children('.delete-div').show();
-    //$(this).addClass('text-strikethrough');
-  })
-  // Hide 'Delete' div on mouseleave
-  .on( 'mouseleave', '.listitem', function( event ) {
-    //console.log( 'MOUSE LEAVE' );
-    $(this).children( '.delete-div' ).hide();
-  });
-
-  // Add item to list if the 'Submit' button is pressed
-  // 1) use after() if list not EMPTY
-  // 2) use append() if list EMPTY
-  $( 'button' ).click( function() {
-    var input = document.getElementById("item");
-    var text = input.value;
-    if ($.trim(text).length > 0) {
-      var newItem = $('<li class="listitem"><input type="checkbox">' + text + '<div class="delete-div"><span class="delete">Delete</span></div>');
-      $( 'ul' ).append(newItem);
-    } else {
-      alert('Please enter some text');
-    }
-    input.value = '';
-  });
-
-  $("#item").keyup(function(event){
-    if(event.keyCode == 13){
-        $("#add").click();
-    }
-  });
-
-  // Bring input in focus on mouseenter, blue on mouseout
-  $( '#item' ).on( 'mouseenter', function( event ) {
-    //console.log( 'MOUSE ENTER INPUT' );
-    $(this).focus();
-  })
-  .on( 'mouseout', function( event ) {
-    //console.log( 'MOUSE OUT INPUT' );
-    $(this).blur();
-  });
-
-  // Handle line-through when checkbox CHECKED or NOT
-  $( '#shopping-list' ).on('click', '.listitem', function( event ) {
-    if ($(this).children('input').is(':checked')) {
-      console.log('Check box checked');
-      $(this).closest('li').css('text-decoration', 'line-through');
-    } else {
-      console.log('Check box UNchecked');
-      $(this).closest('li').css('text-decoration', 'none');
-    }
-  });
-
-});
-*/
+        .controller( 'StoreListCtrl', StoreListCtrl );
