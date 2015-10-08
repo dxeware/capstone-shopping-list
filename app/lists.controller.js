@@ -18,7 +18,7 @@ function refresh( $http, vm, url ) {
     console.log("response = " + response);
     vm.list = response.data;
   },
-  function(err) {
+  function(error) {
     dbError( vm );
   });
 }

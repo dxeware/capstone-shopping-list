@@ -40,8 +40,8 @@ function ListService( $http, $q, url ) {
         console.log(response);
         deferred.resolve(response);
       },
-      function(response) {
-        deferred.reject(response);
+      function(error) {
+        deferred.reject(error);
       }
     );
     return deferred.promise;
@@ -53,8 +53,8 @@ function ListService( $http, $q, url ) {
       console.log(response);
       deferred.resolve(response);
     },
-      function(response) {
-        deferred.reject(response);
+      function(error) {
+        deferred.reject(error);
       }
     );
     return deferred.promise;
@@ -69,8 +69,8 @@ function ListService( $http, $q, url ) {
       console.log(response);
       deferred.resolve(response);
       },
-        function(response) {
-          deferred.reject(response);
+        function(error) {
+          deferred.reject(error);
         }
       );
       return deferred.promise;
