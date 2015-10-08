@@ -126,8 +126,11 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
     if ( vm.newItem !== '' ) {
       //GroceryList.addItem( { item: vm.newItem } );
       //if ( var temp = service.addItem( { item: vm.newItem } ) ) {
-      service.addItem( { item: vm.newItem } );
-      refresh($http, vm, url);
+      service.addItem( { item: vm.newItem } )
+        .then( function(response) {
+                refresh($http, vm, url);
+              })
+        .catch(dbError( vm ));
     }
 
     // Clear the input

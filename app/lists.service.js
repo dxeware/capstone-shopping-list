@@ -4,27 +4,28 @@ angular.module('shoppingListApp')
   .service( 'TargetList', TargetList);
 
 //GroceryList service
-function GroceryList( $http ) {
+function GroceryList( $http, $q ) {
 
-  return ListService( $http, grocery_url);
+  return ListService( $http, $q, grocery_url);
 }
 
 //TraderJoesList service
-function TraderJoesList( $http ) {
+function TraderJoesList( $http, $q ) {
 
-  return ListService( $http, traderjoes_url);
+  return ListService( $http, $q, traderjoes_url);
 }
 
 //TargetList service
-function TargetList ( $http ) {
+function TargetList ( $http, $q ) {
 
-  return ListService( $http, target_url);
+  return ListService( $http, $q, target_url);
 }
 
 // Generic ListService that contains store
 // list and methods for adding, removing, etc.
-function ListService( $http, url ) {
+function ListService( $http, $q, url ) {
   var shoppingList = [];
+  var deferred = $q.defer();
 
   var service = {
     list: shoppingList,
@@ -35,14 +36,15 @@ function ListService( $http, url ) {
 
   // Add an item to the store's list
   function addItem( item ) {
-    //service.list.push( item );
     $http.post( url, item ).then( function(response) {
         console.log(response);
+        deferred.resolve(response);
       },
-      function(err) {
-        console.log('DB ERROR');
+      function(response) {
+        deferred.reject(response);
       }
     );
+    return deferred.promise;
   }
 
   // Delete an item from the store's list via id
@@ -72,4 +74,5 @@ function ListService( $http, url ) {
   }
 
   return service;
+  //return deferred.promise;
 }
