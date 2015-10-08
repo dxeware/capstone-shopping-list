@@ -49,14 +49,15 @@ function ListService( $http, $q, url ) {
 
   // Delete an item from the store's list via id
   function deleteItem( id ) {
-    //service.list.splice(index, 1);
     $http.delete( url + '/' + id ).then( function(response) {
       console.log(response);
+      deferred.resolve(response);
     },
-      function(err) {
-        console.log('DB ERROR!');
+      function(response) {
+        deferred.reject(response);
       }
     );
+    return deferred.promise;
   }
 
   // Delete ALL items from the store's list
@@ -66,13 +67,15 @@ function ListService( $http, $q, url ) {
     //service.list.length = 0;
     $http.delete( url + '/' + '-1').then( function(response) {
       console.log(response);
-    },
-      function(err) {
-        console.log('DB ERROR');
-      }
-    );
+      deferred.resolve(response);
+      },
+        function(response) {
+          deferred.reject(response);
+        }
+      );
+      return deferred.promise;
   }
 
   return service;
-  //return deferred.promise;
+
 }

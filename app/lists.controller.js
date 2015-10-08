@@ -23,19 +23,6 @@ function refresh( $http, vm, url ) {
   });
 }
 
-// Delete the items that have been checked
-function deleteSelectedItems ( vm, service ) {
-
-  // Walk through list, if item checked
-  // then delete in database
-  for (var i = 0; i < vm.list.length; i++) {
-    if ( vm.list[i].checked === true ) {
-      console.log ("select deleting id " + vm.list[i]._id);
-      service.deleteItem( vm.list[i]._id );
-    }
-  }
-}
-
 // angular.module setter
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
@@ -144,8 +131,11 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete item from DB via id and refresh the list
     //GroceryList.deleteItem( id );
-    service.deleteItem( id );
-    refresh($http, vm, url);
+    service.deleteItem( id )
+      .then( function(response) {
+              refresh($http, vm, url);
+            })
+      .catch(dbError( vm ));
   };
 
   // Function called when individual item
@@ -153,10 +143,19 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
   vm.deleteSelected = function() {
     console.log('Grocery delete SELECTED');
 
-    // delete selected items from DB and refresh the list
-    //deleteSelectedItems( vm, GroceryList);
-    deleteSelectedItems( vm, service );
-    refresh($http, vm, url);
+    // Walk through list, if item checked
+    // then delete in database
+    for (var i = 0; i < vm.list.length; i++) {
+      if ( vm.list[i].checked === true ) {
+        console.log ("select deleting id " + vm.list[i]._id);
+        service.deleteItem( vm.list[i]._id )
+          .then( function(response) {
+                  refresh($http, vm, url);
+                })
+          .catch(dbError( vm ));
+      }
+    }
+
   };
 
   // Function called when Delete All
@@ -166,8 +165,12 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete ALL items from DB and refresh the list
     //GroceryList.deleteAllItems();
-    service.deleteAllItems();
-    refresh($http, vm, url);
+    service.deleteAllItems()
+    .then( function(response) {
+            refresh($http, vm, url);
+          })
+    .catch(dbError( vm ));
+
   };
 
 }
