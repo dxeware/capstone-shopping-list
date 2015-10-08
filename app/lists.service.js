@@ -36,7 +36,8 @@ function ListService( $http, $q, url ) {
 
   // Add an item to the store's list
   function addItem( item ) {
-    $http.post( url, item ).then( function(response) {
+    $http.post( url, item ).then(
+      function(response) {
         console.log(response);
         deferred.resolve(response);
       },
@@ -49,10 +50,11 @@ function ListService( $http, $q, url ) {
 
   // Delete an item from the store's list via id
   function deleteItem( id ) {
-    $http.delete( url + '/' + id ).then( function(response) {
-      console.log(response);
-      deferred.resolve(response);
-    },
+    $http.delete( url + '/' + id ).then(
+      function(response) {
+        console.log(response);
+        deferred.resolve(response);
+      },
       function(error) {
         deferred.reject(error);
       }
@@ -65,15 +67,16 @@ function ListService( $http, $q, url ) {
   // which initiates DELETE ALL
   function deleteAllItems() {
     //service.list.length = 0;
-    $http.delete( url + '/' + '-1').then( function(response) {
-      console.log(response);
-      deferred.resolve(response);
+    $http.delete( url + '/' + '-1').then(
+      function(response) {
+        console.log(response);
+        deferred.resolve(response);
       },
-        function(error) {
-          deferred.reject(error);
-        }
-      );
-      return deferred.promise;
+      function(error) {
+        deferred.reject(error);
+      }
+    );
+    return deferred.promise;
   }
 
   return service;
