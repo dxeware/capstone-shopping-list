@@ -36,17 +36,25 @@ function ListService( $http, url ) {
   // Add an item to the store's list
   function addItem( item ) {
     //service.list.push( item );
-    $http.post( url, item ).success( function(response) {
-      console.log(response);
-    });
+    $http.post( url, item ).then( function(response) {
+        console.log(response);
+      },
+      function(err) {
+        return -1;
+      }
+    );
   }
 
   // Delete an item from the store's list via id
   function deleteItem( id ) {
     //service.list.splice(index, 1);
-    $http.delete( url + '/' + id ).success( function(response) {
+    $http.delete( url + '/' + id ).then( function(response) {
       console.log(response);
-    });
+    },
+      function(err) {
+        return -1;
+      }
+    );
   }
 
   // Delete ALL items from the store's list
@@ -54,9 +62,13 @@ function ListService( $http, url ) {
   // which initiates DELETE ALL
   function deleteAllItems() {
     //service.list.length = 0;
-    $http.delete( url + '/' + '-1').success( function(response) {
+    $http.delete( url + '/' + '-1').then( function(response) {
       console.log(response);
-    });
+    },
+      function(err) {
+        return -1;
+      }
+    );
   }
 
   return service;

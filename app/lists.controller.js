@@ -2,6 +2,12 @@ var grocery_url = '/grocerylist';
 var traderjoes_url = '/traderjoeslist';
 var target_url = '/targetlist';
 
+function dbError( vm ) {
+  console.log("GOT A DB ERROR!");
+  vm.errorPresent = true;
+  vm.error = "ERROR: Database failure!";
+}
+
 // Get's the list from DB and refreshes the VM list
 function refresh( $http, vm, url ) {
   //Clear any errors
@@ -13,21 +19,21 @@ function refresh( $http, vm, url ) {
     vm.list = response.data;
   },
   function(err) {
-    console.log("GOT A DB ERROR!");
-    vm.errorPresent = true;
-    vm.error = "ERROR: failed to read Database!";
+    dbError( vm );
   });
 }
 
 // Delete the items that have been checked
-function deleteSelectedItems ( vm, list ) {
+function deleteSelectedItems ( vm, service ) {
 
   // Walk through list, if item checked
   // then delete in database
   for (var i = 0; i < vm.list.length; i++) {
     if ( vm.list[i].checked === true ) {
       console.log ("select deleting id " + vm.list[i]._id);
-      list.deleteItem( vm.list[i]._id );
+      if ( -1 === service.deleteItem( vm.list[i]._id ) ) {
+        dbError( vm );
+      }
     }
   }
 }
@@ -121,7 +127,9 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
     // and refresh the list
     if ( vm.newItem !== '' ) {
       //GroceryList.addItem( { item: vm.newItem } );
-      service.addItem( { item: vm.newItem } );
+      if ( -1 === service.addItem( { item: vm.newItem } ) ) {
+        dbError(vm);
+      }
       refresh($http, vm, url);
     }
 
@@ -136,7 +144,9 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete item from DB via id and refresh the list
     //GroceryList.deleteItem( id );
-    service.deleteItem( id );
+    if ( -1 === service.deleteItem( id ) ) {
+      dbError(vm);
+    }
     refresh($http, vm, url);
   };
 
@@ -147,7 +157,7 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete selected items from DB and refresh the list
     //deleteSelectedItems( vm, GroceryList);
-    deleteSelectedItems( vm, service);
+    deleteSelectedItems( vm, service );
     refresh($http, vm, url);
   };
 
@@ -158,7 +168,9 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete ALL items from DB and refresh the list
     //GroceryList.deleteAllItems();
-    service.deleteAllItems();
+    if ( -1 === service.deleteAllItems() ) {
+      dbError(vm);
+    }
     refresh($http, vm, url);
   };
 
