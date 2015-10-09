@@ -50,8 +50,9 @@ body {
   margin-bottom: 0.5em;
 }
 
-button, input {
+.item {
   font-size: 0.75em;
+  height: 1.6em;
 }
 
 .shopping-list {
@@ -66,9 +67,7 @@ button, input {
   height: 1.25em;
   list-style-type: none;
   text-align: left;
-  text-align: bottom;
-  padding-top: 1em;
-  padding-left: 0.5em;
+  padding: 0.25em 0.5em;
   border-bottom: 2px solid black;
   color: black;
 }
@@ -77,12 +76,31 @@ button, input {
   display: inline-block;
 }
 
-.strikethrough {
-  text-decoration: line-through;
+/*.item-options {
+  display: inline-block;
+  float: right;
 }
+
+.move {
+  float: right;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.move-div {
+  margin-top: -0.5em;
+  width: 6em;
+  float: right;
+  opacity: 0;
+}
+
+.move-div:hover {
+  opacity: 1;
+} */
 
 .delete {
   float: right;
+  margin-top: 0.5em;
   margin-right: 0.5em;
   background-color: red;
   cursor: pointer;
@@ -116,6 +134,55 @@ button, input {
   color: red;
   font-weight: bold;
   background-color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    display: none;
+    margin: 0;
+
+    /****************
+     ** NEW STYLES **
+     ****************/
+
+    list-style: none; /** Remove list bullets */
+    width: 100%; /** Set the width to 100% of it's parent */
+    padding: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/** Button Styles **/
+.dropdown button, button {
+    background: steelblue;
+    color: #FFFFFF;
+    border: none;
+    margin: 0;
+    padding: 0.4em 0.8em;
+    font-size: 0.85em;
+}
+
+/** List Item Styles **/
+.dropdown li {
+    display: block;
+    padding: 0.2em 0.8em;
+    text-decoration: none;
+    background: #CCCCCC;
+    color: #333333;
+    font-size: 0.75em;
+}
+
+/** List Item Hover Styles **/
+.dropdown li:hover {
+    background: #BBBBBB;
 }
 /* -------ANIMATIONS------- */
 

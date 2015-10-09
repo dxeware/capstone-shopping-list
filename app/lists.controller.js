@@ -201,6 +201,18 @@ function StoreListCtrl( StoreListService, $http, $location ) {
 
   };
 
+  // Function called when Move Selected
+  // store is selected
+  vm.moveSelected = function(obj) {
+    console.log('MOVE SELECTED pressed');
+
+    //Only process if value is defined
+    if ( obj.target.attributes.value ) {
+      console.log('MOVE SELECTED pressed - value = ' + obj.target.attributes.value.nodeValue);
+    }
+
+  };
+
 }
 
 angular.module('shoppingListApp')
