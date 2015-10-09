@@ -1,10 +1,10 @@
 angular.module('shoppingListApp')
-  .service( 'TraderJoesList', TraderJoesList)
-  .service( 'GroceryList', GroceryList)
-  .service( 'TargetList', TargetList);
+  //.service( 'TraderJoesList', TraderJoesList)
+  .service( 'StoreListService', StoreListService);
+  //.service( 'TargetList', TargetList);
 
 //GroceryList service
-function GroceryList( $http, $q ) {
+/*function GroceryList( $http, $q ) {
 
   return ListService( $http, $q, grocery_url);
 }
@@ -19,11 +19,11 @@ function TraderJoesList( $http, $q ) {
 function TargetList ( $http, $q ) {
 
   return ListService( $http, $q, target_url);
-}
+} */
 
 // Generic ListService that contains store
 // list and methods for adding, removing, etc.
-function ListService( $http, $q, url ) {
+function StoreListService( $http, $q) {
   var shoppingList = [];
   var deferred = $q.defer();
 
@@ -31,17 +31,18 @@ function ListService( $http, $q, url ) {
     list: shoppingList,
     addItem: addItem,
     deleteItem: deleteItem,
-    deleteAllItems: deleteAllItems
   };
 
   // Add an item to the store's list
   function addItem( item ) {
-    $http.post( url, item ).then(
+    $http.post( storelist_url, item ).then(
       function(response) {
+        console.log("POST success");
         console.log(response);
         deferred.resolve(response);
       },
       function(error) {
+        console.log("POST error");
         deferred.reject(error);
       }
     );
@@ -50,7 +51,7 @@ function ListService( $http, $q, url ) {
 
   // Delete an item from the store's list via id
   function deleteItem( id ) {
-    $http.delete( url + '/' + id ).then(
+    $http.delete( storelist_url + '/' + id ).then(
       function(response) {
         console.log(response);
         deferred.resolve(response);
@@ -65,9 +66,9 @@ function ListService( $http, $q, url ) {
   // Delete ALL items from the store's list
   // -1 is used to represent an INVALID mongodb _id
   // which initiates DELETE ALL
-  function deleteAllItems() {
+  /*function deleteAllItems() {
     //service.list.length = 0;
-    $http.delete( url + '/' + '-1').then(
+    $http.delete( storelist_url + '/' + '-1').then(
       function(response) {
         console.log(response);
         deferred.resolve(response);
@@ -77,7 +78,7 @@ function ListService( $http, $q, url ) {
       }
     );
     return deferred.promise;
-  }
+  } */
 
   return service;
 

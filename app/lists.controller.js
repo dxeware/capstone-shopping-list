@@ -1,6 +1,6 @@
-var grocery_url = '/grocerylist';
-var traderjoes_url = '/traderjoeslist';
-var target_url = '/targetlist';
+var storelist_url = '/storelist';
+//var traderjoes_url = '/traderjoeslist';
+//var target_url = '/targetlist';
 
 function dbError( vm ) {
   console.log("GOT A DB ERROR!");
@@ -9,18 +9,21 @@ function dbError( vm ) {
 }
 
 // Get's the list from DB and refreshes the VM list
-function refresh( $http, vm, url ) {
+function refresh( $http, vm) {
   //Clear any errors
   vm.errorPresent = false;
 
-  $http.get(url).then( function (response) {
-    console.log('I got the ' + url + ' data');
-    console.log("response = " + response);
-    vm.list = response.data;
-  },
-  function(error) {
-    dbError( vm );
-  });
+  $http.get(storelist_url).then(
+    function (response) {
+      console.log('I got the ' + storelist_url + ' data');
+      console.log("response = " + response);
+      vm.list = response.data;
+    },
+    function(error) {
+      console.log("Refresh DB error");
+      dbError( vm );
+    }
+  );
 }
 
 // angular.module setter
@@ -65,16 +68,19 @@ function HomeCtrl($location) {
 
 }
 
-StoreListCtrl.$inject = ['GroceryList', 'TraderJoesList', 'TargetList', '$http', '$location'];
+StoreListCtrl.$inject = ['StoreListService', '$http', '$location'];
 
-function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $location ) {
+function StoreListCtrl( StoreListService, $http, $location ) {
   var vm = this;
-  var url;
-  var service;
+  var service = StoreListService;
+
 
   // Initialize error to false
   vm.errorPresent = false;
   vm.error = '';
+
+  //Initialize store type
+  vm.storeType = '';
 
   console.log("path = " + $location.path());
 
@@ -82,17 +88,17 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
   // for current store database
   switch ( $location.path() ) {
     case '/grocery':
-      service = GroceryList;
-      url = grocery_url;
+      //service = GroceryList;
+      vm.storeType = 'grocery';
       break;
     case '/trader-joes':
       console.log('tjs....');
-      service = TraderJoesList;
-      url = traderjoes_url;
+      //service = TraderJoesList;
+      vm.storeType = 'traderJoes';
       break;
     case '/target':
-      service = TargetList;
-      url = target_url;
+      //service = TargetList;
+      vm.storeType = 'target';
       break;
   }
 
@@ -101,7 +107,7 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
   vm.list = service.list;
 
   // Refresh the list
-  refresh($http, vm, url);
+  refresh($http, vm);
 
   // Function called when input submit button OR
   // enter is pressed
@@ -113,11 +119,13 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
     if ( vm.newItem !== '' ) {
       //GroceryList.addItem( { item: vm.newItem } );
       //if ( var temp = service.addItem( { item: vm.newItem } ) ) {
-      service.addItem( { item: vm.newItem } )
+      service.addItem( { type: vm.storeType, item: vm.newItem } )
         .then( function(response) {
-                refresh($http, vm, url);
+                refresh($http, vm);
               })
-        .catch(dbError( vm ));
+        .catch( function() {
+                dbError( vm );
+              });
     }
 
     // Clear the input
@@ -133,9 +141,11 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
     //GroceryList.deleteItem( id );
     service.deleteItem( id )
       .then( function(response) {
-              refresh($http, vm, url);
+              refresh($http, vm);
             })
-      .catch(dbError( vm ));
+      .catch(function() {
+                dbError( vm );
+              });
   };
 
   // Function called when individual item
@@ -150,9 +160,11 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
         console.log ("select deleting id " + vm.list[i]._id);
         service.deleteItem( vm.list[i]._id )
           .then( function(response) {
-                  refresh($http, vm, url);
+                  refresh($http, vm);
                 })
-          .catch(dbError( vm ));
+          .catch(function() {
+                dbError( vm );
+              });
       }
     }
 
@@ -165,11 +177,27 @@ function StoreListCtrl( GroceryList, TraderJoesList, TargetList, $http, $locatio
 
     // delete ALL items from DB and refresh the list
     //GroceryList.deleteAllItems();
-    service.deleteAllItems()
+    /*service.deleteAllItems()
     .then( function(response) {
-            refresh($http, vm, url);
+            refresh($http, vm);
           })
-    .catch(dbError( vm ));
+    .catch(function() {
+                dbError( vm );
+              }); */
+    // Walk through list, if item checked
+    // then delete in database
+    for (var i = 0; i < vm.list.length; i++) {
+      if ( vm.list[i].type === vm.storeType ) {
+        console.log ("Deleting ALL id " + vm.list[i]._id);
+        service.deleteItem( vm.list[i]._id )
+          .then( function(response) {
+                  refresh($http, vm);
+                })
+          .catch(function() {
+                dbError( vm );
+              });
+      }
+    }
 
   };
 

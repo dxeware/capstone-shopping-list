@@ -1,14 +1,15 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var groceryDB = mongojs('grocerylist', ['grocerylist']);
-var traderJoesDB = mongojs('traderjoeslist', ['traderjoeslist']);
-var targetDB = mongojs('targetlist', ['targetlist']);
+var storeDB = mongojs('storelist', ['storelist']);
+var db = storeDB.storelist;
+//var traderJoesDB = mongojs('traderjoeslist', ['traderjoeslist']);
+//var targetDB = mongojs('targetlist', ['targetlist']);
 
 var bodyParser = require('body-parser');
 
 // Map the db based on the url
-function mapDB( url ) {
+/*function mapDB( url ) {
   var db;
 
   if ( url.indexOf(groceryDB) > -1 ) {
@@ -21,7 +22,8 @@ function mapDB( url ) {
     throw("ERROR: Incorrect Database!");
   }
   return db;
-}
+} */
+
 
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
@@ -32,12 +34,12 @@ app.use(bodyParser.json());
 
 // Get request to retrieve list from database
 app.get('/*list', function(req, res) {
-  var db;
+  //var db;
 
   console.log("I received a get request");
 
   // Map to store's database list
-  db = mapDB(req.url);
+  //db = mapDB(req.url);
 
   // Call mongodb find() to retrieve list of items
   db.find(function (err, docs) {
@@ -50,12 +52,12 @@ app.get('/*list', function(req, res) {
 
 // Post request to insert to list in database
 app.post('/*list', function(req, res) {
-  var db;
+  //var db;
 
   console.log("%s %O", "Body =", req.body);
 
   // Map to store's database list
-  db = mapDB(req.url);
+  //db = mapDB(req.url);
 
   // Call mongodb insert() to add item to list
   db.insert(req.body, function(err, doc) {
@@ -66,30 +68,22 @@ app.post('/*list', function(req, res) {
 
 // Delete request to remove from list in database
 app.delete('/*list/:id', function(req, res) {
-  var db;
+  //var db;
   var id = req.params.id;
   console.log ('req.params = ' + req.params);
   console.log ('req.url = ' + req.url);
 
   // Map to store's database list
-  db = mapDB(req.url);
+  //db = mapDB(req.url);
 
-  // Check that id is VALID --> -1 represents INVALID
-  if ( id !== '-1' ) {
-    console.log(id);
 
-    // Remove one _id from database
-    db.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
-      res.json(doc);
-    });
-  } else {
-    console.log("deleting ALL!!!!");
+  console.log(id);
 
-    // Remove all items from database
-    db.remove({}, function (err, doc) {
-      res.json(doc);
-    });
-  }
+  // Remove one _id from database
+  db.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    res.json(doc);
+  });
+
 });
 
 app.listen(3000);
