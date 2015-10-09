@@ -86,5 +86,18 @@ app.delete('/*list/:id', function(req, res) {
 
 });
 
+app.put('/*list/:id', function(req, res) {
+  var id = req.params.id;
+  console.log(req.body.name);
+  db.findAndModify({
+    query: {_id: mongojs.ObjectId(id)},
+    update: {$set: {type: req.body.type}},
+    new: true},
+    function (err, doc) {
+      res.json(doc);
+    }
+  );
+});
+
 app.listen(3000);
 console.log("Server running on port 3000");
