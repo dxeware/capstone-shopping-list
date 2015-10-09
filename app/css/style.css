@@ -1,11 +1,11 @@
 body {
   font-family: 'Lucida Grande', Verdana, sans-serif;
-  color: white;
+  color: #fffff8;
   background-color: #2C3539; /* dark grey */
 }
 
 .kitchen-background {
-  padding: 6em 0;
+  padding: 1em 0;
   background-image: url('../images/kitchen-crop.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -34,9 +34,10 @@ body {
 
 .home {
   text-align: center;
-  margin: 2em 8em;
+  margin: auto;
   font-size: 24px;
   font-weight: bold;
+  color: black;
 }
 
 .text-through {
@@ -178,7 +179,7 @@ body {
     background: #779299;
     color: #FFFFFF;
     border: none;
-    margin: 0;
+    margin: 0.25em auto;
     padding: 0.4em 0.8em;
     font-size: 0.85em;
 }
@@ -244,15 +245,24 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
-    .kitchen-background h1 {
-        font-size: 2.5em;
-    }
-    .shopping-list {
-      width: 80%;
-      font-size: 1em;
-    }
-    .error {
-      width: 10em;
-    }
+  .kitchen-background h1 {
+      font-size: 2.5em;
+  }
+  .shopping-list {
+    width: 80%;
+    font-size: 1em;
+  }
+  .error {
+    width: 10em;
+  }
+  .container {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+      width: 60%;
+  }
 }
 

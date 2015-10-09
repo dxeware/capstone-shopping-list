@@ -10,11 +10,7 @@
   </ul>
   <div class="footer" ng-hide="store.storeEmpty">
     <button class="shadow" type="submit" data-ng-click="store.deleteAll()">Delete All</button>
-  </div>
-  <div class="footer" ng-hide="store.storeEmpty">
     <button class="shadow" type="submit" data-ng-click="store.deleteSelected()">Delete Selected</button>
-  </div>
-  <div class="footer" ng-hide="store.storeEmpty">
     <move-list data-ng-click="store.moveSelected($event)"></move-list>
   </div>
   <div class="error" ng-show="store.errorPresent">{{store.error}}

@@ -3,7 +3,7 @@ angular.module('shoppingListApp')
     return {
         template: '<div class="dropdown">\
                       <!-- trigger button -->\
-                      <button class="shadow">Move Selected</button>\
+                      <button>Move Selected</button>\
                       <!-- dropdown menu -->\
                       <ul class="dropdown-menu">\
                           <li value="grocery">Grocery</li>\
