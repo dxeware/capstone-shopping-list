@@ -19,11 +19,13 @@ body {
 }
 
 .menu {
-  height: 36px;
-  width: auto;
+  height: 30px;
+  width: 20em;
   font-size: 20px;
   text-align: center;
-  margin: 10px auto;
+  margin: 1em auto;
+  background-color: #779299;
+  padding-top: 0.25em;
 }
 
 .active {
@@ -35,7 +37,6 @@ body {
   margin: 2em 8em;
   font-size: 24px;
   font-weight: bold;
-  //background-color: #2C3539; /* dark grey */
 }
 
 .text-through {
@@ -53,11 +54,20 @@ body {
 .item {
   font-size: 0.75em;
   height: 1.6em;
+  background-color: #C3C3C2;
+  color: black;
+}
+
+.container {
+  background-color: #fffff8;
+  padding: 1em 0;
+  width: 50%;
+  margin: auto;
 }
 
 .shopping-list {
   padding: 0;
-  width: 60%;
+  width: 95%;
   margin: auto;
   background-color: #F0E68C;
   font-size: 1.25em;
@@ -135,6 +145,9 @@ body {
   font-weight: bold;
   background-color: white;
 }
+.shadow {
+  box-shadow: 0 0 0 0.1em white;
+}
 
 .dropdown {
     position: relative;
@@ -162,12 +175,16 @@ body {
 
 /** Button Styles **/
 .dropdown button, button {
-    background: steelblue;
+    background: #779299;
     color: #FFFFFF;
     border: none;
     margin: 0;
     padding: 0.4em 0.8em;
     font-size: 0.85em;
+}
+
+.dropdown button:hover {
+  cursor: none;
 }
 
 /** List Item Styles **/
@@ -178,6 +195,7 @@ body {
     background: #CCCCCC;
     color: #333333;
     font-size: 0.75em;
+    cursor: alias;
 }
 
 /** List Item Hover Styles **/

@@ -10,20 +10,33 @@ function dbError( vm ) {
 
 // Get's the list from DB and refreshes the VM list
 function refresh( $http, vm) {
+
   //Clear any errors
   vm.errorPresent = false;
+
+  // Set store empty flag to true
+  vm.storeEmpty = true;
 
   $http.get(storelist_url).then(
     function (response) {
       console.log('I got the ' + storelist_url + ' data');
       console.log("response = " + response);
       vm.list = response.data;
+
+      // Walk through list, if item checked
+      // then delete in database
+      for (var i = 0; i < vm.list.length; i++) {
+        if ( vm.list[i].type === vm.storeType ) {
+          vm.storeEmpty = false;
+        }
+      }
     },
     function(error) {
       console.log("Refresh DB error");
       dbError( vm );
     }
   );
+
 }
 
 // angular.module setter
