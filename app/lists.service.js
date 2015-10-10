@@ -46,8 +46,8 @@ function StoreListService( $http, $q) {
 
 
   // Update an item in the store's list via id
-  function updateItem( id, name ) {
-    $http.put( storelist_url + '/' + id, name ).then(
+  function updateItem( id, entry ) {
+    $http.put( storelist_url + '/' + id, entry ).then(
       function(response) {
         console.log(response);
         deferred.resolve(response);

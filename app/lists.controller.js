@@ -211,14 +211,14 @@ function StoreListCtrl( StoreListService, $http, $location ) {
 
       // Get store name from clicked object attributes
       store = obj.target.attributes.value.nodeValue;
-      console.log('MOVE SELECTED pressed - value = ' + obj.target.attributes.value.nodeValue);
+      console.log('MOVE SELECTED pressed - value = ' + store);
 
       // Walk through list, if item checked
       // then update in database
       for (var i = 0; i < vm.list.length; i++) {
         if ( vm.list[i].checked === true ) {
           console.log ("Moving id " + vm.list[i]._id);
-          service.updateItem( vm.list[i]._id, { name: store } )
+          service.updateItem( vm.list[i]._id, { name: store, item: vm.list[i].item } )
             .then( function(response) {
                     refresh($http, vm);
                   })

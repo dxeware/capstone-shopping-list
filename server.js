@@ -58,7 +58,7 @@ app.put('/*list/:id', function(req, res) {
   // Update the list name in database
   db.findAndModify({
     query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {name: req.body.name}},
+    update: {$set: {name: req.body.name, item: req.body.item}},
     new: true},
     function (err, doc) {
       res.json(doc);
