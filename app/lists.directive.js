@@ -6,9 +6,9 @@ angular.module('shoppingListApp')
                       <button>Move Selected</button>\
                       <!-- dropdown menu -->\
                       <ul class="dropdown-menu">\
-                          <li value="grocery">Grocery</li>\
-                          <li value="traderJoes">Trader Joes</li>\
-                          <li value="target">Target</li>\
+                          <li value="Grocery">Grocery</li>\
+                          <li value="Trader Joe\'s">Trader Joe\'s</li>\
+                          <li value="Target">Target</li>\
                       </ul>\
                   </div>',
         restrict: 'E',

@@ -234,7 +234,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
       for (var i = 0; i < vm.list.length; i++) {
         if ( vm.list[i].checked === true ) {
           console.log ("Moving id " + vm.list[i]._id);
-          service.updateItem( vm.list[i]._id, { name: store, item: vm.list[i].item } )
+          service.updateItem( vm.list[i]._id, { name: store } )
             .then( function(response) {
                     refresh($http, vm);
                   })
