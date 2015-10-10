@@ -26,7 +26,7 @@ function refresh( $http, vm) {
       // Walk through list, if item checked
       // then delete in database
       for (var i = 0; i < vm.list.length; i++) {
-        if ( vm.list[i].type === vm.storeType ) {
+        if ( vm.list[i].name === vm.storeName ) {
           vm.storeEmpty = false;
         }
       }
@@ -92,8 +92,8 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   vm.errorPresent = false;
   vm.error = '';
 
-  //Initialize store type
-  vm.storeType = '';
+  //Initialize store name
+  vm.storeName = '';
 
   console.log("path = " + $location.path());
 
@@ -102,16 +102,16 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   switch ( $location.path() ) {
     case '/grocery':
       //service = GroceryList;
-      vm.storeType = 'grocery';
+      vm.storeName = 'Grocery';
       break;
     case '/trader-joes':
       console.log('tjs....');
       //service = TraderJoesList;
-      vm.storeType = 'traderJoes';
+      vm.storeName = 'Trader Joe\'s';
       break;
     case '/target':
       //service = TargetList;
-      vm.storeType = 'target';
+      vm.storeName = 'Target';
       break;
   }
 
@@ -132,7 +132,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
     if ( vm.newItem !== '' ) {
       //GroceryList.addItem( { item: vm.newItem } );
       //if ( var temp = service.addItem( { item: vm.newItem } ) ) {
-      service.addItem( { type: vm.storeType, item: vm.newItem } )
+      service.addItem( { name: vm.storeName, item: vm.newItem } )
         .then( function(response) {
                 refresh($http, vm);
               })
@@ -200,7 +200,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
     // Walk through list, if item checked
     // then delete in database
     for (var i = 0; i < vm.list.length; i++) {
-      if ( vm.list[i].type === vm.storeType ) {
+      if ( vm.list[i].name === vm.storeName ) {
         console.log ("Deleting ALL id " + vm.list[i]._id);
         service.deleteItem( vm.list[i]._id )
           .then( function(response) {
@@ -225,7 +225,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
     //Only process if value is defined
     if ( obj.target.attributes.value ) {
 
-      // Get store type from clicked object attributes
+      // Get store name from clicked object attributes
       store = obj.target.attributes.value.nodeValue;
       console.log('MOVE SELECTED pressed - value = ' + obj.target.attributes.value.nodeValue);
 
@@ -234,7 +234,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
       for (var i = 0; i < vm.list.length; i++) {
         if ( vm.list[i].checked === true ) {
           console.log ("Moving id " + vm.list[i]._id);
-          service.updateItem( vm.list[i]._id, { type: store, item: vm.list[i].item } )
+          service.updateItem( vm.list[i]._id, { name: store, item: vm.list[i].item } )
             .then( function(response) {
                     refresh($http, vm);
                   })

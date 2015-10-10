@@ -1,16 +1,17 @@
-<div class="container">
+<div class="container shadow">
   <div class="input">
-    <span style="color: black">Item: </span>
+    <span style="color:black">Item: </span>
     <input class="item" data-ng-model="store.newItem" ng-keyup="$event.keyCode == 13 ? store.submit() : null">
     <button class="shadow" type="submit" data-ng-click="store.submit()">Submit</button>
   </div>
+  <p class="list-heading" ng-hide="store.storeEmpty">{{store.storeName}} List</p>
   <ul class="shopping-list" id="shopping-list" data-ng-repeat="items in store.list">
-    <li class="listitem" data-ng-show="items.type === store.storeType"><input class="check" type="checkbox" data-ng-model="items.checked"> {{items.item}}<div class="delete-div"><span class="delete" data-ng-click="store.delete(items._id)">Delete</span></div>
+    <li class="listitem" data-ng-show="items.name === store.storeName"><input class="check" type="checkbox" data-ng-model="items.checked"> {{items.item}}<div class="delete-div"><span class="delete" data-ng-click="store.delete(items._id)">Delete</span></div>
     </li>
   </ul>
   <div class="footer" ng-hide="store.storeEmpty">
-    <button class="shadow" type="submit" data-ng-click="store.deleteAll()">Delete All</button>
-    <button class="shadow" type="submit" data-ng-click="store.deleteSelected()">Delete Selected</button>
+    <button type="submit" data-ng-click="store.deleteAll()">Delete All</button>
+    <button type="submit" data-ng-click="store.deleteSelected()">Delete Selected</button>
     <move-list data-ng-click="store.moveSelected($event)"></move-list>
   </div>
   <div class="error" ng-show="store.errorPresent">{{store.error}}
