@@ -1,6 +1,4 @@
 var storelist_url = '/storelist';
-//var traderjoes_url = '/traderjoeslist';
-//var target_url = '/targetlist';
 
 function dbError( vm ) {
   console.log("GOT A DB ERROR!");
@@ -127,8 +125,6 @@ function StoreListCtrl( StoreListService, $http, $location ) {
     // If input not empty, add newItem to list
     // and refresh the list
     if ( vm.newItem !== '' ) {
-      //GroceryList.addItem( { item: vm.newItem } );
-      //if ( var temp = service.addItem( { item: vm.newItem } ) ) {
       service.addItem( { name: vm.storeName, item: vm.newItem } )
         .then( function(response) {
                 refresh($http, vm);
@@ -185,15 +181,6 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
 
-    // delete ALL items from DB and refresh the list
-    //GroceryList.deleteAllItems();
-    /*service.deleteAllItems()
-    .then( function(response) {
-            refresh($http, vm);
-          })
-    .catch(function() {
-                dbError( vm );
-              }); */
     // Walk through list, if item checked
     // then delete in database
     for (var i = 0; i < vm.list.length; i++) {

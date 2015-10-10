@@ -97,28 +97,6 @@ body {
   display: inline-block;
 }
 
-/*.item-options {
-  display: inline-block;
-  float: right;
-}
-
-.move {
-  float: right;
-  margin-right: 0.5em;
-  cursor: pointer;
-}
-
-.move-div {
-  margin-top: -0.5em;
-  width: 6em;
-  float: right;
-  opacity: 0;
-}
-
-.move-div:hover {
-  opacity: 1;
-} */
-
 .delete {
   float: right;
   margin-top: 0.5em;
