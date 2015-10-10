@@ -167,7 +167,7 @@ body {
 
 .dropdown .dropdown-menu {
     position: absolute;
-    top: -170%;
+    top: -100%;
     display: none;
     margin: 0;
 

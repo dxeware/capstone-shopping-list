@@ -92,7 +92,8 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   vm.errorPresent = false;
   vm.error = '';
 
-  //Initialize store name
+  //Initialize store names
+  vm.storeArray = ['Grocery', 'Trader Joe\'s', 'Target'];
   vm.storeName = '';
 
   console.log("path = " + $location.path());
@@ -101,17 +102,13 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   // for current store database
   switch ( $location.path() ) {
     case '/grocery':
-      //service = GroceryList;
-      vm.storeName = 'Grocery';
+      vm.storeName = vm.storeArray[0];
       break;
     case '/trader-joes':
-      console.log('tjs....');
-      //service = TraderJoesList;
-      vm.storeName = 'Trader Joe\'s';
+      vm.storeName = vm.storeArray[1];
       break;
     case '/target':
-      //service = TargetList;
-      vm.storeName = 'Target';
+      vm.storeName = vm.storeArray[2];
       break;
   }
 
