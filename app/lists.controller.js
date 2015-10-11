@@ -52,8 +52,7 @@ function config($routeProvider, $httpProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl : './app/home.html',
     controller : 'HomeCtrl',
-    controllerAs: 'vm',
-    activetab: 'home'
+    //activetab: 'home'
   }).when('/grocery', {
     templateUrl : './app/generic-list.html',
     controller : 'StoreListCtrl',
@@ -93,8 +92,6 @@ function HomeCtrl($scope, $location, userSession) {
             }
   );
 
-  //$scope.pageClass = 'page-home';
-
   // Set active link
   $scope.isActive = function(route) {
       return route === $location.path();
@@ -107,7 +104,6 @@ StoreListCtrl.$inject = ['StoreListService', '$http', '$location'];
 function StoreListCtrl( StoreListService, $http, $location ) {
   var vm = this;
   var service = StoreListService;
-
 
   // Initialize error to false
   vm.errorPresent = false;

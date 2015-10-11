@@ -22,17 +22,25 @@ body {
  }
 
 .menu {
-  height: 30px;
+  height: auto;
   width: 20em;
   font-size: 20px;
   text-align: center;
   margin: 1em auto;
   background-color: #779299;
-  padding-top: 0.25em;
+  padding: 0.5em auto;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
 
 .active {
     text-decoration: none;
+    color: white;
+    font-weight: bold;
 }
 
 .home {

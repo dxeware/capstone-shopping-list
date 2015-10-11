@@ -11,14 +11,14 @@
     <div class="menu shadow">
       <a ng-class="{active:isActive('/')}" href="#/">Home</a>
       <span> | </span>
+      <a ng-class="{active:isActive('/login')}" ng-hide="loggedIn" href="#/login">Login</a>
+      <a ng-class="{active:isActive('/logout')}" ng-show="loggedIn" href="#/logout">Logout</a>
+      <br>
       <a ng-class="{active:isActive('/grocery')}" href="#/grocery">Grocery</a>
       <span> | </span><a ng-class="{active:isActive('/trader-joes')}" href="#/trader-joes">Trader Joe's</a>
       <span> | </span>
       <a ng-class="{active:isActive('/target')}" href="#/target">Target</a>
-    </div>
-    <div class="menu shadow">
-      <span ng-hide="loggedIn"><a ng-href="#/login">Login</a></span>
-      <span ng-show="loggedIn"><a ng-href="#/logout">Logout</a></span>
+
     </div>
     <div class="page" ng-view></div>
   </section>
