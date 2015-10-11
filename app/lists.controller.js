@@ -40,12 +40,19 @@ function refresh( $http, vm) {
 // angular.module setter
 angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
 
-config.$inject = ['$routeProvider'];
+config.$inject = ['$routeProvider', '$httpProvider', '$locationProvider'];
 
-function config($routeProvider) {
+function config($routeProvider, $httpProvider, $locationProvider) {
+
+  // add interceptor
+  $httpProvider.interceptors.push('authenticationInterceptor');
+
+  //$locationProvider.html5Mode(true);
+
   $routeProvider.when('/', {
     templateUrl : './app/home.html',
     controller : 'HomeCtrl',
+    controllerAs: 'vm',
     activetab: 'home'
   }).when('/grocery', {
     templateUrl : './app/generic-list.html',
@@ -59,21 +66,37 @@ function config($routeProvider) {
     templateUrl : './app/generic-list.html',
     controller : 'StoreListCtrl',
     controllerAs: 'store'
-  }).when('/error', {
+  }).when('/login', {
+    templateUrl: './app/auth/login.html',
+    controller: 'LoginController'
+  })
+  .when('/logout', {
+    template: '',
+    controller: 'LogoutController'
+  })
+  .when('/error', {
     templateUrl : './app/home.html',
    })
   .otherwise('/error');
 }
 
-HomeCtrl.$inject = ['$location'];
+HomeCtrl.$inject = ['$scope', '$location', 'userSession'];
 
-function HomeCtrl($location) {
-  var vm = this;
+function HomeCtrl($scope, $location, userSession) {
+
+  $scope.loggedIn = userSession.loggedIn;
+  $scope.$watch(function(){
+              return userSession.loggedIn;
+            },
+            function(newVal, oldVal){
+              $scope.loggedIn = newVal;
+            }
+  );
 
   //$scope.pageClass = 'page-home';
 
   // Set active link
-  vm.isActive = function(route) {
+  $scope.isActive = function(route) {
       return route === $location.path();
   };
 

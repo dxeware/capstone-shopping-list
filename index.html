@@ -16,6 +16,10 @@
       <span> | </span>
       <a ng-class="{active:isActive('/target')}" href="#/target">Target</a>
     </div>
+    <div class="menu shadow">
+      <span ng-hide="loggedIn"><a ng-href="#/login">Login</a></span>
+      <span ng-show="loggedIn"><a ng-href="#/logout">Logout</a></span>
+    </div>
     <div class="page" ng-view></div>
   </section>
   <section>
@@ -28,5 +32,7 @@
   <script type="text/javascript" src="./app/lists.controller.js"></script>
   <script type="text/javascript" src="./app/lists.service.js"></script>
   <script type="text/javascript" src="./app/lists.directive.js"></script>
+  <script type="text/javascript" src="./app/auth/auth.service.js"></script>
+  <script type="text/javascript" src="./app/auth/auth.controller.js"></script>
 </body>
 </html>
