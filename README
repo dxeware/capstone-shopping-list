@@ -3,11 +3,12 @@ using AngularJS and MongoDB.
 
 To install application:
 
--Install mongodb
+- Install mongodb
 
--clone the repo
+- Clone the repo
 
--run 'npm install'
+- run 
+>npm install
 
--run 'node server.js'
+>run node server.js
 
