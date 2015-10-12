@@ -7,8 +7,8 @@ To install application:
 
 - Clone the repo
 
-- run 
->npm install
+- Run: 
+> npm install
 
->run node server.js
+> node server.js
 
