@@ -1,10 +1,8 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var storeDB = mongojs('storelist', ['storelist']);
+var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
 var db = storeDB.storelist;
-//var traderJoesDB = mongojs('traderjoeslist', ['traderjoeslist']);
-//var targetDB = mongojs('targetlist', ['targetlist']);
 
 var bodyParser = require('body-parser');
 
