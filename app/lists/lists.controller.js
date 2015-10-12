@@ -37,48 +37,6 @@ function refresh( $http, vm) {
 
 }
 
-// angular.module setter
-angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
-
-config.$inject = ['$routeProvider', '$httpProvider', '$locationProvider'];
-
-function config($routeProvider, $httpProvider, $locationProvider) {
-
-  // add interceptor
-  $httpProvider.interceptors.push('authenticationInterceptor');
-
-  //$locationProvider.html5Mode(true);
-
-  $routeProvider.when('/', {
-    templateUrl : './app/home.html',
-    controller : 'HomeCtrl',
-    //activetab: 'home'
-  }).when('/grocery', {
-    templateUrl : './app/generic-list.html',
-    controller : 'StoreListCtrl',
-    controllerAs: 'store'
-  }).when('/trader-joes', {
-    templateUrl : './app/generic-list.html',
-    controller : 'StoreListCtrl',
-    controllerAs: 'store'
-  }).when('/target', {
-    templateUrl : './app/generic-list.html',
-    controller : 'StoreListCtrl',
-    controllerAs: 'store'
-  }).when('/login', {
-    templateUrl: './app/auth/login.html',
-    controller: 'LoginController'
-  })
-  .when('/logout', {
-    template: '',
-    controller: 'LogoutController'
-  })
-  .when('/error', {
-    templateUrl : './app/home.html',
-   })
-  .otherwise('/error');
-}
-
 HomeCtrl.$inject = ['$scope', '$location', 'userSession'];
 
 function HomeCtrl($scope, $location, userSession) {
