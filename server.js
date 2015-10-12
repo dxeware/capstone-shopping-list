@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
+//var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
+var storeDB = mongojs('mongodb://heroku_vtqgw5s8:ms06bjecvnv872t2cgr09m9h2k@ds035844.mongolab.com:35844/heroku_vtqgw5s8', ['storelist']);
 var db = storeDB.storelist;
 
 var bodyParser = require('body-parser');
