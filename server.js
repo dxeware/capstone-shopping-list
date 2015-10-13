@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
+var uri = process.env.MONGOLAB_URI || '127.0.0.1:27017/storelist';
+//var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
+var storeDB = mongojs(uri, ['storelist'], {authMechanism: 'ScramSHA1'});
 var db = storeDB.storelist;
 
 var bodyParser = require('body-parser');
@@ -64,5 +66,6 @@ app.put('/*list/:id', function(req, res) {
   );
 });
 
-app.listen(3000);
-console.log("Server running on port 3000");
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
