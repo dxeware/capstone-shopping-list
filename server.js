@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
+
 var uri = process.env.MONGOLAB_URI || '127.0.0.1:27017/storelist';
-//var storeDB = mongojs('127.0.0.1:27017/storelist', ['storelist']);
 var storeDB = mongojs(uri, ['storelist'], {authMechanism: 'ScramSHA1'});
 var db = storeDB.storelist;
 
