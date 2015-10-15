@@ -94,6 +94,7 @@ a {
 
 .shopping-list li {
   height: auto;
+  width: auto;
   list-style-type: none;
   text-align: left;
   padding: 0.25em 0.5em;
@@ -102,19 +103,24 @@ a {
 }
 
 .shopping-list .delete {
+  //display: inline-block;
+}
+
+.item-text {
   display: inline-block;
+  width: 70%;
 }
 
 .delete {
   float: right;
-  margin-top: 0.5em;
+  //margin-top: 0.5em;
   margin-right: 0.5em;
   background-color: red;
   cursor: pointer;
 }
 
 .delete-div {
-  margin-top: -0.5em;
+  //margin-top: -0.5em;
   width: 6em;
   float: right;
   opacity: 0;
