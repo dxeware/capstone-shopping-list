@@ -25,6 +25,23 @@ app.get('/*list', function(req, res) {
 
 });
 
+// Get request to retrieve username and password
+app.get('/user/', function(req, res) {
+
+  var data = {};
+
+  console.log("I received a username/password request");
+
+  // Retrieve username and password from environment
+  data.username = process.env.SHOP_USERNAME;
+  data.password = process.env.SHOP_PASSWORD;
+
+  console.log("username/password = " + data.username + " " + data.password);
+
+  res.json(data);
+
+});
+
 // Post request to insert to list in database
 app.post('/*list', function(req, res) {
 
