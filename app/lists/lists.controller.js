@@ -1,3 +1,5 @@
+"use strict";
+
 var storelist_url = '/storelist';
 
 function dbError( vm ) {
@@ -30,7 +32,7 @@ function refresh( $http, vm) {
       }
     },
     function(error) {
-      console.log("Refresh DB error");
+      console.log("Refresh DB error " + error);
       dbError( vm );
     }
   );
@@ -42,6 +44,7 @@ HomeCtrl.$inject = ['$scope', '$location', 'userSession'];
 function HomeCtrl($scope, $location, userSession) {
 
   $scope.loggedIn = userSession.loggedIn;
+
   $scope.$watch(function(){
               return userSession.loggedIn;
             },
@@ -49,6 +52,7 @@ function HomeCtrl($scope, $location, userSession) {
               $scope.loggedIn = newVal;
             }
   );
+
 
   // Set active link
   $scope.isActive = function(route) {
@@ -160,6 +164,7 @@ function StoreListCtrl( StoreListService, $http, $location ) {
 
     // Walk through list, if item checked
     // then delete in database
+    /*jshint loopfunc:true */
     for (var i = 0; i < vm.list.length; i++) {
       if ( vm.list[i].name === vm.storeName ) {
         console.log ("Deleting ALL id " + vm.list[i]._id);

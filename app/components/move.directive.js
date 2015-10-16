@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('shoppingListApp')
   .directive('moveList', function() {
     return {

@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('shoppingListApp')
   .service( 'StoreListService', StoreListService);
 

@@ -1,3 +1,5 @@
+"use strict";
+
 config.$inject = ['$routeProvider', '$httpProvider', '$locationProvider'];
 
 function config($routeProvider, $httpProvider, $locationProvider) {
