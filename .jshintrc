@@ -89,7 +89,11 @@
     "yui"           : false,    // Yahoo User Interface
 
     // Custom Globals
-    "globals"       : {},        // additional predefined global variables
+    "globals"       : {        // additional   predefined global variables
+       "require"    : false,
+       "__dirname"  : false,
+       "process"    : false
+    },
 
     "predef"        : ["angular", "config"]
 }
