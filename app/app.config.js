@@ -25,7 +25,8 @@ function config($routeProvider, $httpProvider, $locationProvider) {
     controllerAs: 'store'
   }).when('/login', {
     templateUrl: './app/auth/login.html',
-    controller: 'LoginController'
+    controller: 'LoginController',
+    controllerAs: 'ctrl'
   })
   .when('/logout', {
     template: '',

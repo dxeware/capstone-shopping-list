@@ -30,13 +30,16 @@ app.get('/user/', function(req, res) {
 
   var data = {};
 
-  console.log("I received a username/password request");
+  console.log("Received a username/password request");
 
   // Retrieve username and password from environment
   data.username = process.env.SHOP_USERNAME;
   data.password = process.env.SHOP_PASSWORD;
 
-  console.log("username/password = " + data.username + " " + data.password);
+  //console.log("username/password = " + data.username + " " + data.password);
+  if ( (data.username === '' || data.password === '') ) {
+    console.log("SERVER ERROR: username and/or password are not set in the environment");
+  }
 
   res.json(data);
 

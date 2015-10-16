@@ -2,21 +2,23 @@ angular.module('shoppingListApp')
   .controller('LoginController', function(userSession, $location, $http) {
     var ctrl = this;
     ctrl.previousPage = $location.search().previous;
+    console.log("Entering LoginController");
+    //ctrl.loginFailed = true;
     ctrl.login = function(username, password) {
-      this.loginFailed = null;
+      ctrl.loginFailed = false;
       $http.get('/user/').then(
         function (response) {
-          console.log('username/password MATCHED!!');
           if(username == response.data.username && password == response.data.password) {
             userSession.loggedIn = true;
             $location.path(ctrl.previousPage || '/');
+            console.log('username/password MATCHED!!');
           } else {
             console.log('username/password MIS-MATCH!!');
-            this.loginFailed = true;
+            ctrl.loginFailed = true;
           }
         },
         function(error) {
-          this.loginFailed = true;
+          ctrl.loginFailed = true;
         }
       );
 
