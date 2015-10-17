@@ -104,6 +104,7 @@ a {
 
 .check {
   width: 1em;
+  padding-left: 5px;
 }
 
 .shopping-list li > div {
