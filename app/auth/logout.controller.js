@@ -1,4 +1,4 @@
-"ues strict";
+"use strict";
 
 LogoutCtrl.$inject = ['userSession', '$location'];
 
