@@ -1,10 +1,12 @@
 "use strict";
 
-angular.module('shoppingListApp')
-  .controller('LoginController', function(userSession, $location, $http) {
+LoginCtrl.$inject = ['userSession', '$location', '$http'];
+
+function LoginCtrl(userSession, $location, $http) {
     var ctrl = this;
+
     ctrl.previousPage = $location.search().previous;
-    console.log("Entering LoginController");
+    console.log("Entering LoginCtlr");
     ctrl.login = function(username, password) {
       ctrl.loginFailed = false;
       $http.get('/user/').then(
@@ -25,8 +27,7 @@ angular.module('shoppingListApp')
       );
 
     };
-  })
-  .controller("LogoutController", function(userSession, $location){
-    userSession.loggedIn=false;
-    $location.path('/login');
-  });
+  }
+
+  angular.module('shoppingListApp')
+          .controller('LoginCtrl', LoginCtrl);

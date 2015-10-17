@@ -27,12 +27,12 @@ function config($routeProvider, $httpProvider, $locationProvider) {
     controllerAs: 'store'
   }).when('/login', {
     templateUrl: './app/auth/login.html',
-    controller: 'LoginController',
+    controller: 'LoginCtrl',
     controllerAs: 'ctrl'
   })
   .when('/logout', {
     template: '',
-    controller: 'LogoutController'
+    controller: 'LogoutCtrl'
   })
   .when('/error', {
     templateUrl : './app/home.html',

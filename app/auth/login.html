@@ -1,6 +1,6 @@
 <div class="container home">
   <p>Please log in to access your shopping lists!</p>
-  <form name='loginForm' ng-controller='LoginController as ctrl' ng-submit='loginForm.$valid && ctrl.login(username, password)'>
+  <form name='loginForm' ng-controller='LoginCtrl as ctrl' ng-submit='loginForm.$valid && ctrl.login(username, password)'>
     <p class="password-error" ng-if="ctrl.loginFailed">Your username + password combination is invalid</p>
     <div class='field'>
       <label>Username: </label>
