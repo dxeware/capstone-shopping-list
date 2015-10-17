@@ -1,4 +1,4 @@
-Shopping List App written in NodeJS, 
+Shopping List App written in NodeJS,
 using AngularJS and MongoDB.
 
 To install application:
@@ -7,8 +7,8 @@ To install application:
 
 - Clone the repo
 
-- Run: 
-> npm install
+- Run:
+    npm install
 
-> node server.js
+    node server.js
 
