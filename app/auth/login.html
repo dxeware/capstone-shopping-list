@@ -1,4 +1,4 @@
-<div class="container home">
+<div class="container home" ng-hide="ctrl.loggedIn">
   <p>Please log in to access your shopping lists!</p>
   <form name='loginForm' ng-controller='LoginCtrl as ctrl' ng-submit='loginForm.$valid && ctrl.login(username, password)'>
     <p class="password-error" ng-if="ctrl.loginFailed">Your username + password combination is invalid</p>
@@ -12,4 +12,7 @@
     </div>
     <input type="submit" value="Submit">
   </form>
+</div>
+<div class="container home" ng-show="ctrl.loggedIn">
+  <p>You are currently logged in!</p>
 </div>

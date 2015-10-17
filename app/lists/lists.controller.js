@@ -39,6 +39,7 @@ function refresh( $http, vm) {
 
 }
 
+/*
 HomeCtrl.$inject = ['$scope', '$location', 'userSession'];
 
 function HomeCtrl($scope, $location, userSession) {
@@ -60,10 +61,11 @@ function HomeCtrl($scope, $location, userSession) {
   };
 
 }
+*/
 
-StoreListCtrl.$inject = ['StoreListService', '$http', '$location'];
+StoreListCtrl.$inject = ['StoreListService', '$http', '$location', 'userSession'];
 
-function StoreListCtrl( StoreListService, $http, $location ) {
+function StoreListCtrl( StoreListService, $http, $location, userSession ) {
   var vm = this;
   var service = StoreListService;
 
@@ -76,6 +78,16 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   vm.storeName = '';
 
   console.log("path = " + $location.path());
+
+  vm.loggedIn = userSession.loggedIn;
+  console.log("userSession.loggedIn = " + userSession.loggedIn);
+  /* vm.$watch(function(){
+              return userSession.loggedIn;
+            },
+            function(newVal, oldVal){
+              vm.loggedIn = newVal;
+            }
+  ); */
 
   // Map $location.path to Service and url
   // for current store database
@@ -219,5 +231,5 @@ function StoreListCtrl( StoreListService, $http, $location ) {
 
 angular.module('shoppingListApp')
         .config(config)
-        .controller( 'HomeCtrl', HomeCtrl )
+        //.controller( 'HomeCtrl', HomeCtrl )
         .controller( 'StoreListCtrl', StoreListCtrl );

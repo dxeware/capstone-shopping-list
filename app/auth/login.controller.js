@@ -5,6 +5,9 @@ LoginCtrl.$inject = ['userSession', '$location', '$http'];
 function LoginCtrl(userSession, $location, $http) {
     var ctrl = this;
 
+    ctrl.loggedIn = userSession.loggedIn;
+    console.log("ctrl.loggedIn = ", ctrl.loggedIn);
+
     ctrl.previousPage = $location.search().previous;
     console.log("Entering LoginCtlr");
     ctrl.login = function(username, password) {

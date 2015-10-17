@@ -1,8 +1,8 @@
 "use strict";
 
-config.$inject = ['$routeProvider', '$httpProvider', '$locationProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
-function config($routeProvider, $httpProvider, $locationProvider) {
+/*function config($routeProvider, $httpProvider, $locationProvider) {
 
   // add interceptor
   $httpProvider.interceptors.push('authenticationInterceptor');
@@ -38,4 +38,55 @@ function config($routeProvider, $httpProvider, $locationProvider) {
     templateUrl : './app/home.html',
    })
   .otherwise('/error');
+} */
+
+function config($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  // add interceptor
+  $httpProvider.interceptors.push('authenticationInterceptor');
+
+  $urlRouterProvider.otherwise('/home');
+
+  $stateProvider
+
+    // STATES ========================================
+    .state('home', {
+      url: '/home',
+      templateUrl: './app/home.html',
+      //controller: HomeCtrl
+    })
+
+    .state('grocery', {
+      url: '/grocery',
+      templateUrl: './app/lists/shopping-list.html',
+      controller: 'StoreListCtrl',
+      controllerAs: 'store'
+    })
+
+    .state('trader-joes', {
+      url: '/trader-joes',
+      templateUrl: './app/lists/shopping-list.html',
+      controller: 'StoreListCtrl',
+      controllerAs: 'store'
+    })
+
+    .state('target', {
+      url: '/target',
+      templateUrl: './app/lists/shopping-list.html',
+      controller: 'StoreListCtrl',
+      controllerAs: 'store'
+    })
+
+    .state('login', {
+      url: '/login',
+      templateUrl: './app/auth/login.html',
+      controller: 'LoginCtrl',
+      controllerAs: 'ctrl'
+    })
+
+    .state('logout', {
+      url: '/logout',
+      controller: 'LogoutCtrl'
+    });
+
 }

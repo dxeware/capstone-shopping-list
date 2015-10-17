@@ -1,2 +1,4 @@
+"use strict";
+
 // angular.module setter
-angular.module( 'shoppingListApp', ['ngRoute', 'ngAnimate'] );
+angular.module( 'shoppingListApp', ['ui.router', 'ngAnimate'] );
