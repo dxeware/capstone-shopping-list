@@ -18,6 +18,7 @@ set -gx SHOP_PASSWORD 'password'
 npm install
 node server.js
 ```
+---
 
 ####To install application on Heroku:
 
@@ -28,7 +29,7 @@ node server.js
 ```sh
 heroku login
 ```
--Create an app on Heroku
+- Create an app on Heroku
 ```sh
 heroku create
 ```
