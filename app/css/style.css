@@ -77,6 +77,11 @@ a {
   border: 5px ridge #779299;
 }
 
+.logged-in-flag {
+  font-size: 16px;
+  color: #779299;
+}
+
 .list-heading {
   color: #779299;
   margin: 0 auto;

@@ -52,8 +52,9 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
     // STATES ========================================
     .state('home', {
       url: '/home',
-      templateUrl: './app/home.html',
-      //controller: HomeCtrl
+      templateUrl: './app/home/home.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
     })
 
     .state('grocery', {
