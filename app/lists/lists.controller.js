@@ -162,19 +162,21 @@ function StoreListCtrl( StoreListService, $http, $location ) {
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
 
-    // Walk through list, if item checked
-    // then delete in database
-    /*jshint loopfunc:true */
-    for (var i = 0; i < vm.list.length; i++) {
-      if ( vm.list[i].name === vm.storeName ) {
-        console.log ("Deleting ALL id " + vm.list[i]._id);
-        service.deleteItem( vm.list[i]._id )
-          .then( function(response) {
-                  refresh($http, vm);
-                })
-          .catch(function() {
-                dbError( vm );
-              });
+    if ( confirm("Are you sure -- Delete All?") ) {
+      // Walk through list,
+      // delete all list items in database
+      /*jshint loopfunc:true */
+      for (var i = 0; i < vm.list.length; i++) {
+        if ( vm.list[i].name === vm.storeName ) {
+          console.log ("Deleting ALL id " + vm.list[i]._id);
+          service.deleteItem( vm.list[i]._id )
+            .then( function(response) {
+                    refresh($http, vm);
+                  })
+            .catch(function() {
+                  dbError( vm );
+                });
+        }
       }
     }
 
