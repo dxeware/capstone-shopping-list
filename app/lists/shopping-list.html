@@ -1,19 +1,19 @@
 <div class="container shadow">
   <div class="input">
     <span style="color:black">Item: </span>
-    <input class="item" data-ng-model="store.newItem" ng-keyup="$event.keyCode == 13 ? store.submit() : null">
+    <input class="item" data-ng-model="store.newItem" data-ng-keyup="$event.keyCode == 13 ? store.submit() : null">
     <button class="shadow" type="submit" data-ng-click="store.submit()">Submit</button>
   </div>
-  <p class="list-heading" ng-hide="store.storeEmpty">{{store.storeName}} List</p>
+  <p class="list-heading" data-ng-hide="store.storeEmpty">{{store.storeName}} List</p>
   <ul class="shopping-list" id="shopping-list" data-ng-repeat="items in store.list">
     <li data-ng-show="items.name === store.storeName"><div class="check"><input type="checkbox" data-ng-model="items.checked"></div><div class="item-text">{{items.item}}</div><div class="delete-div"><span class="delete" data-ng-click="store.delete(items._id)">Delete</span></div>
     </li>
   </ul>
-  <div class="footer" ng-hide="store.storeEmpty">
+  <div class="footer" data-ng-hide="store.storeEmpty">
     <button type="submit" data-ng-click="store.deleteAll()">Delete All</button>
     <button type="submit" data-ng-click="store.deleteSelected()">Delete Selected</button>
     <move-list data-ng-click="store.moveSelected($event)"></move-list>
   </div>
-  <div class="error" ng-show="store.errorPresent">{{store.error}}
+  <div class="error" data-ng-show="store.errorPresent">{{store.error}}
   </div>
 </div>

@@ -1,18 +1,18 @@
-<div class="container home" ng-hide="ctrl.loggedIn">
+<div class="container home" data-ng-hide="ctrl.loggedIn">
   <p>Please log in to access your shopping lists!</p>
-  <form name='loginForm' ng-controller='LoginCtrl as ctrl' ng-submit='loginForm.$valid && ctrl.login(username, password)'>
-    <p class="password-error" ng-if="ctrl.loginFailed">Your username + password combination is invalid</p>
+  <form name='loginForm' data-ng-controller='LoginCtrl as ctrl' data-ng-submit='loginForm.$valid && ctrl.login(username, password)'>
+    <p class="password-error" data-ng-if="ctrl.loginFailed">Your username + password combination is invalid</p>
     <div class='field'>
       <label>Username: </label>
-      <input type='text' ng-model='username' name='username' required/>
+      <input type='text' data-ng-model='username' name='username' required/>
     </div>
     <div class='field'>
       <label>Password: </label>
-      <input type='password' ng-model='password' name='password' required/>
+      <input type='password' data-ng-model='password' name='password' required/>
     </div>
     <input type="submit" value="Submit">
   </form>
 </div>
-<div class="container home" ng-show="ctrl.loggedIn">
+<div class="container home" data-ng-show="ctrl.loggedIn">
   <p>You are currently logged in!</p>
 </div>
