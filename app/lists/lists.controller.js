@@ -203,6 +203,14 @@ function StoreListCtrl( StoreListService, $http, $location, userSession ) {
 
   };
 
+  // Function called to toggle checkbox
+  // when item is clicked
+  vm.toggleCheckbox = function(index) {
+    console.log("toggleCheckbox called...");
+    //Toggle the item checkbox
+    vm.list[index].checked = !vm.list[index].checked;
+  };
+
 }
 
 angular.module('shoppingListApp')

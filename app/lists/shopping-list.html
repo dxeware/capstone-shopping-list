@@ -6,7 +6,7 @@
   </div>
   <p class="list-heading" data-ng-hide="store.storeEmpty">{{store.storeName}} List</p>
   <ul class="shopping-list" id="shopping-list" data-ng-repeat="items in store.list">
-    <li data-ng-show="items.name === store.storeName"><div class="check"><input type="checkbox" data-ng-model="items.checked"></div><div class="item-text">{{items.item}}</div><div class="delete-div"><span class="delete" data-ng-click="store.delete(items._id)">Delete</span></div>
+    <li data-ng-show="items.name === store.storeName"><div class="check"><input type="checkbox" data-ng-model="items.checked"></div><div class="item-text" data-ng-click="store.toggleCheckbox($index)">{{items.item}}</div><div class="delete-div"><span class="delete" data-ng-click="store.delete(items._id)">Delete</span></div>
     </li>
   </ul>
   <div class="footer" data-ng-hide="store.storeEmpty">
