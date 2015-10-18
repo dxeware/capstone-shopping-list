@@ -202,6 +202,10 @@ a {
     font-size: 0.85em;
 }
 
+button {
+  cursor: pointer;
+}
+
 .dropdown button:hover {
   cursor: none;
 }

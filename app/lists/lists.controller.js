@@ -39,30 +39,6 @@ function refresh( $http, vm) {
 
 }
 
-/*
-HomeCtrl.$inject = ['$scope', '$location', 'userSession'];
-
-function HomeCtrl($scope, $location, userSession) {
-
-  $scope.loggedIn = userSession.loggedIn;
-
-  $scope.$watch(function(){
-              return userSession.loggedIn;
-            },
-            function(newVal, oldVal){
-              $scope.loggedIn = newVal;
-            }
-  );
-
-
-  // Set active link
-  $scope.isActive = function(route) {
-      return route === $location.path();
-  };
-
-}
-*/
-
 StoreListCtrl.$inject = ['StoreListService', '$http', '$location', 'userSession'];
 
 function StoreListCtrl( StoreListService, $http, $location, userSession ) {
@@ -174,7 +150,7 @@ function StoreListCtrl( StoreListService, $http, $location, userSession ) {
   vm.deleteAll = function() {
     console.log('Grocery delete ALL pressed');
 
-    if ( confirm("Are you sure -- Delete All?") ) {
+    if ( confirm("Are you sure you want to Delete All?") ) {
       // Walk through list,
       // delete all list items in database
       /*jshint loopfunc:true */
@@ -231,5 +207,4 @@ function StoreListCtrl( StoreListService, $http, $location, userSession ) {
 
 angular.module('shoppingListApp')
         .config(config)
-        //.controller( 'HomeCtrl', HomeCtrl )
         .controller( 'StoreListCtrl', StoreListCtrl );
