@@ -1,0 +1,2 @@
+./app/**/*.Spec.js
+./karma.conf.js
