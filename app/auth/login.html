@@ -1,6 +1,6 @@
 <div class="container home" data-ng-hide="ctrl.loggedIn">
   <p>Please log in to access your shopping lists!</p>
-  <form name='loginForm' data-ng-controller='LoginCtrl as ctrl' data-ng-submit='loginForm.$valid && ctrl.login(username, password)'>
+  <form name='loginForm' data-ng-submit='loginForm.$valid && ctrl.login(username, password)'>
     <p class="password-error" data-ng-if="ctrl.loginFailed">Your username + password combination is invalid</p>
     <div class='field'>
       <label>Username: </label>
