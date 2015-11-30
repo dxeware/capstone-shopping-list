@@ -4,6 +4,7 @@ LoginCtrl.$inject = ['userSession', '$location', '$http'];
 
 function LoginCtrl(userSession, $location, $http) {
     var ctrl = this;
+    var credentials = {};
 
     ctrl.loggedIn = userSession.loggedIn;
     console.log("ctrl.loggedIn = ", ctrl.loggedIn);
@@ -12,9 +13,11 @@ function LoginCtrl(userSession, $location, $http) {
     console.log("Entering LoginCtlr");
     ctrl.login = function(username, password) {
       ctrl.loginFailed = false;
-      $http.get('/user/').then(
+      credentials.username = username;
+      credentials.password = password;
+      $http.post('/user/', credentials).then(
         function (response) {
-          if(username === response.data.username && password === response.data.password) {
+          if(true === response.data.authenticated) {
             userSession.loggedIn = true;
             $location.path(ctrl.previousPage || '/');
             console.log('username/password MATCHED!!');

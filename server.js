@@ -29,22 +29,25 @@ app.get('/*list', function(req, res) {
 });
 
 // Get request to retrieve username and password
-app.get('/user/', function(req, res) {
-
-  var data = {};
+app.post('/user/', function(req, res) {
 
   console.log("Received a username/password request");
 
   // Retrieve username and password from environment
-  data.username = process.env.SHOP_USERNAME;
-  data.password = process.env.SHOP_PASSWORD;
+  var username = process.env.SHOP_USERNAME;
+  var password = process.env.SHOP_PASSWORD;
 
-  //console.log("username/password = " + data.username + " " + data.password);
-  if ( (data.username === '' || data.password === '') ) {
+  if ( (username === '' || password === '') ) {
     console.log("SERVER ERROR: username and/or password are not set in the environment");
+    res.json({authenticated: false});
+  } else {
+    if ( (req.body.username === username) && 
+          (req.body.password === password) ) {
+      res.json({authenticated: true});
+    } else {
+      res.json({authenticated: false});
+    }
   }
-
-  res.json(data);
 
 });
 
