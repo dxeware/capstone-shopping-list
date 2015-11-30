@@ -41,7 +41,7 @@ app.post('/user/', function(req, res) {
     console.log("SERVER ERROR: username and/or password are not set in the environment");
     res.json({authenticated: false});
   } else {
-    if ( (req.body.username === username) && 
+    if ( (req.body.username.toUpperCase() === username.toUpperCase()) && 
           (req.body.password === password) ) {
       res.json({authenticated: true});
     } else {
